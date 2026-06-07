@@ -324,7 +324,399 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
   .wk-mobile-hidden { display: block; }
 }
 
-/* 15. Print Stylesheet (D-12 through D-15) */
+/* 15. Nav Extensions */
+.wk-nav-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  color: var(--fg-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  padding: 0;
+}
+.wk-nav-link[data-active="true"] {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* 16. Language Switcher */
+.wk-lang-switcher {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.wk-lang-btn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 9px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  background: transparent;
+  color: var(--fg-3);
+}
+.wk-lang-btn[data-active="true"] {
+  background: var(--accent);
+  color: var(--vellum-50);
+}
+.wk-lang-btn[data-active="false"]:hover {
+  background: var(--accent-soft);
+}
+
+/* 17. Hero Typography */
+.wk-hero-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--fg-1);
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+.wk-hero-name-accent { font-style: italic; color: var(--accent); }
+.wk-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  color: var(--fg-3);
+  margin: 0 0 1.75rem;
+  line-height: 1.55;
+}
+
+/* 18. Stat Cards Inner */
+.wk-stat-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-xl);
+  color: var(--accent);
+  line-height: 1;
+  margin: 0 0 0.2rem;
+}
+.wk-stat-label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--fg-3);
+  letter-spacing: 0.03em;
+}
+
+/* 19. Bullet List (hero bullets) */
+.wk-bullet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 1.5rem;
+}
+.wk-bullet-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+.wk-bullet-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+.wk-bullet-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--fg-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 20. Credential Badge */
+.wk-cred-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--fg-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  margin-bottom: 2rem;
+}
+
+/* 21. Scroll Hint */
+.wk-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--fg-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  padding: 0;
+}
+
+/* 22. Icon Boxes (card icon containers) */
+.wk-icon-box {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(27,78,74,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.wk-icon-box-sm {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  background: rgba(27,78,74,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.wk-icon-box-lg {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(27,78,74,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.625rem;
+}
+
+/* 23. Card Inner Parts */
+.wk-card-header-lg {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.wk-card-header-sm {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin-bottom: 0.6rem;
+}
+.wk-card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  color: var(--fg-1);
+  margin: 0;
+}
+.wk-card-eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin: 0 0 1px;
+}
+.wk-card-rule {
+  border: 0;
+  border-top: 0.5px solid var(--rule-soft);
+  margin-bottom: 0.75rem;
+}
+.wk-card-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--fg-3);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+/* 24. Dot List (skill detail lists) */
+.wk-dot-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.wk-dot-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--fg-3);
+  line-height: 1.55;
+}
+.wk-dot-marker {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--rule);
+  flex-shrink: 0;
+  margin-top: 0.46rem;
+}
+
+/* 25. Client Card Variants */
+.wk-card-client-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--fg-1);
+  margin: 0 0 0.25rem;
+}
+.wk-card-category {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--fg-3);
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+/* 26. Tag List Wrapper */
+.wk-tag-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+
+/* 27. CTA Banner */
+.wk-cta-card {
+  padding: 3.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+}
+.wk-cta-accent {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  opacity: 0.6;
+}
+.wk-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  margin-bottom: 1.25rem;
+}
+.wk-cta-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  color: var(--fg-1);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.wk-cta-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  color: var(--fg-3);
+  max-width: 36rem;
+  margin: 0 auto 1.75rem;
+  line-height: 1.6;
+}
+.wk-btn-group { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; }
+
+/* 28. Utility Flex Row */
+.wk-flex-row { display: flex; align-items: center; }
+.wk-btn-uppercase { letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* 29. Button Extras */
+.wk-btn-cta-shadow { box-shadow: var(--shadow-2); }
+.wk-btn-outline-dark { color: var(--fg-2); }
+.wk-hero-panel img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+/* 29. Footer Parts */
+.wk-footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.wk-footer-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  color: var(--fg-1);
+}
+.wk-footer-sep { color: var(--rule); font-size: var(--fs-sm); }
+.wk-footer-role {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--fg-3);
+  letter-spacing: 0.03em;
+}
+.wk-footer-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--fg-3);
+  letter-spacing: 0.03em;
+}
+
+/* 30. Hero Extras */
+.wk-hero-fade {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 10rem;
+  background: linear-gradient(to right, transparent, var(--bg));
+}
+.wk-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+}
+.wk-mobile-headshot {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.wk-mobile-headshot-frame { position: relative; display: inline-block; }
+.wk-mobile-headshot-border {
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--rule);
+}
+.wk-mobile-headshot-img {
+  width: 10.5rem;
+  height: 10.5rem;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-lg);
+}
+
+/* 31. Print Stylesheet (D-12 through D-15) */
 @media print {
   .wk-nav,
   .wk-cta-section,

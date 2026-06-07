@@ -1,45 +1,13 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n/i18n";
-import {
-  MapPin,
-  Shield,
-  Cloud,
-  Brain,
-  Users,
-  Code2,
-  Lock,
-  Globe,
-  ChevronDown,
-  Building2,
-  ArrowRight,
-  BarChart2,
-  Landmark,
-  CreditCard,
-  Smartphone,
-  Activity,
-  ShoppingCart,
-  Zap,
-} from "lucide-react";
 import headshotWebp from "@assets/headshot-corp_1776959044728.webp";
 import headshotAvif from "@assets/headshot-corp_1776959044728.avif";
 import headshotWebp1x from "@assets/headshot-corp_1776959044728@1x.webp";
 import headshotAvif1x from "@assets/headshot-corp_1776959044728@1x.avif";
 import { Changelog } from "../components/Changelog";
 
-/* ---- Wolknitive palette constants ---- */
-const INK      = "#14110B";
-const TEAL     = "#1B4E4A";
-const TEAL_6   = "#103A37";
-const V50      = "#FAF6EC";
-const V100     = "#F3ECD9";
-const V200     = "#E7DCC0";
-const V300     = "#CFBE96";
-const V400     = "#9C8A64";
-const V500     = "#6B5C3E";
-const V700     = "#2E261A";
-
-const clientIcons = [BarChart2, Landmark, CreditCard, Smartphone, Activity, ShoppingCart];
+const clientIcons = ["barChart", "landmark", "creditCard", "smartphone", "activity", "shoppingCart"];
 const clientKeys  = ["financialServices", "banking", "fintech", "telecom", "healthtech", "retail"] as const;
 const clientNames = ["Equifax", "Fifth Third Bank", "FISERV", "Verizon / MVNO", "J&J — Medical Devices", "Dollar General"];
 
@@ -58,17 +26,89 @@ const LANGUAGES = [
   { code: "de", label: "DE" },
 ];
 
-/* ---- Lazy below-fold animations (Framer Motion loaded after initial render) ---- */
+/* ---- Inline SVG icons (lucide-compatible paths) ---- */
 
-const LazyFadeIn = lazy(() =>
-  import("../components/FadeIn").then((m) => ({ default: m.FadeInSection })),
-);
+function SvgIcon({ name, className = "wk-icon-md" }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    brain: (
+      <path d="M12 4a4 4 0 0 1 3.5 2.1A4 4 0 0 1 16 10a3.5 3.5 0 0 1-2 3.2V14a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-.8a3.5 3.5 0 0 1-2-3.2 4 4 0 0 1 .5-3.9A4 4 0 0 1 12 4z" />
+    ),
+    cloud: (
+      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+    ),
+    code: (
+      <>
+        <path d="m18 16 4-4-4-4" />
+        <path d="m6 8-4 4 4 4" />
+        <path d="m14.5 4-5 16" />
+      </>
+    ),
+    lock: (
+      <>
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </>
+    ),
+    users: (
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
+    globe: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </>
+    ),
+    barChart: (
+      <>
+        <line x1="18" x2="18" y1="20" y2="10" />
+        <line x1="12" x2="12" y1="20" y2="4" />
+        <line x1="6" x2="6" y1="20" y2="14" />
+      </>
+    ),
+    landmark: (
+      <>
+        <line x1="3" x2="21" y1="22" y2="22" />
+        <line x1="6" x2="6" y1="18" y2="11" />
+        <line x1="10" x2="10" y1="18" y2="11" />
+        <line x1="14" x2="14" y1="18" y2="11" />
+        <line x1="18" x2="18" y1="18" y2="11" />
+        <polygon points="12 2 20 7 4 7" />
+      </>
+    ),
+    creditCard: (
+      <>
+        <rect width="20" height="14" x="2" y="5" rx="2" />
+        <line x1="2" x2="22" y1="10" y2="10" />
+      </>
+    ),
+    smartphone: (
+      <>
+        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+        <line x1="12" x2="12.01" y1="18" y2="18" />
+      </>
+    ),
+    activity: (
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    ),
+    shoppingCart: (
+      <>
+        <circle cx="8" cy="21" r="1" />
+        <circle cx="19" cy="21" r="1" />
+        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+      </>
+    ),
+  };
 
-function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
-    <Suspense fallback={<div>{children}</div>}>
-      <LazyFadeIn delay={delay}>{children}</LazyFadeIn>
-    </Suspense>
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {icons[name]}
+    </svg>
   );
 }
 
@@ -116,6 +156,36 @@ function Tag({
   );
 }
 
+/* ---- Scroll-reveal wrapper (replaces framer-motion) ---- */
+
+function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+      },
+      { rootMargin: "-60px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className="wk-reveal"
+      style={delay ? { transitionDelay: `${delay}s` } as React.CSSProperties : undefined}
+    >
+      {children}
+    </div>
+  );
+}
+
 /* ============================================================
    Main page component
    ============================================================ */
@@ -137,7 +207,7 @@ export default function Home() {
           if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
-      { threshold: 0.35 }
+      { threshold: 0.35 },
     );
     sections.forEach((id) => {
       const el = document.getElementById(id);
@@ -157,12 +227,12 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   const skillCategories = [
-    { icon: Brain,  key: "ai" },
-    { icon: Cloud,  key: "cloud" },
-    { icon: Code2,  key: "engineering" },
-    { icon: Lock,   key: "security" },
-    { icon: Users,  key: "leadership" },
-    { icon: Globe,  key: "digital" },
+    { icon: "brain",  key: "ai" },
+    { icon: "cloud",  key: "cloud" },
+    { icon: "code",   key: "engineering" },
+    { icon: "lock",   key: "security" },
+    { icon: "users",  key: "leadership" },
+    { icon: "globe",  key: "digital" },
   ];
 
   const heroBullets: string[] = t("hero.bullets", { returnObjects: true }) as string[];
@@ -170,22 +240,6 @@ export default function Home() {
     t("experience.entries", { returnObjects: true }) as { company: string; highlight: string; description: string }[];
   const skillItems = (key: string): string[] =>
     t(`skills.categories.${key}.items`, { returnObjects: true }) as string[];
-
-  /* ---- Nav shared styles ---- */
-  const navLinkStyle = (id: string) => ({
-    fontFamily: "var(--font-ui)",
-    fontSize: "var(--fs-sm)",
-    fontWeight: 500 as const,
-    color: activeSection === id ? TEAL : V500,
-    textDecoration: activeSection === id ? `underline` : "none",
-    textUnderlineOffset: "3px",
-    textDecorationThickness: "1px",
-    transition: "color 0.15s",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    padding: 0,
-  });
 
   return (
     <div>
@@ -196,16 +250,7 @@ export default function Home() {
           {/* Logo */}
           <button
             onClick={() => scrollTo("hero")}
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 600,
-              fontSize: "var(--fs-md)",
-              color: INK,
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              letterSpacing: "-0.01em",
-            }}
+            className="wk-nav-logo"
             data-testid="nav-logo"
           >
             Bert Bello
@@ -217,8 +262,8 @@ export default function Home() {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                style={navLinkStyle(link.id)}
                 className="wk-nav-link"
+                data-active={activeSection === link.id || undefined}
                 data-section={link.id}
                 data-testid={`nav-${link.id}`}
               >
@@ -228,22 +273,7 @@ export default function Home() {
             <a
               href="/Humberto_Bello_Resume.pdf"
               download="Humberto_Bello_Resume.pdf"
-              className="wk-btn-outline"
-              style={{
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: V500,
-                border: `1px solid ${V300}`,
-                padding: "4px 12px",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = TEAL;
-                e.currentTarget.style.color = TEAL;
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = V300;
-                e.currentTarget.style.color = V500;
-              }}
+              className="wk-btn-outline wk-btn-uppercase"
               data-testid="nav-resume"
             >
               {t("nav.resume")}
@@ -251,33 +281,15 @@ export default function Home() {
           </div>
 
           {/* Right cluster */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+          <div className="wk-flex-row" style={{ gap: "0.625rem" }}>
             {/* Language switcher */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                border: `1px solid ${V300}`,
-                borderRadius: "var(--radius-sm)",
-                overflow: "hidden",
-              }}
-            >
+            <div className="wk-lang-switcher">
               {LANGUAGES.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => changeLanguage(lang.code)}
-                  style={{
-                    fontFamily: "var(--font-ui)",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    padding: "4px 9px",
-                    background: currentLang === lang.code ? TEAL : "transparent",
-                    color: currentLang === lang.code ? V50 : V500,
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "background 0.15s, color 0.15s",
-                  }}
+                  className="wk-lang-btn"
+                  data-active={currentLang === lang.code || undefined}
                   data-testid={`lang-${lang.code}`}
                 >
                   {lang.label}
@@ -289,16 +301,7 @@ export default function Home() {
             <a
               href="/Humberto_Bello_Resume.pdf"
               download="Humberto_Bello_Resume.pdf"
-              className="wk-nav-toggle"
-              style={{
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: V500,
-                border: `1px solid ${V300}`,
-                borderRadius: "var(--radius-sm)",
-                padding: "4px 10px",
-                gap: "5px",
-              }}
+              className="wk-nav-toggle wk-btn-uppercase"
               title={t("nav.resume")}
               data-testid="nav-resume-mobile"
             >
@@ -310,12 +313,6 @@ export default function Home() {
             <a
               href="mailto:humberto.bello@protonmail.com"
               className="wk-btn-cta"
-              style={{
-                padding: "6px 14px",
-                boxShadow: "var(--shadow-1)",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = TEAL_6)}
-              onMouseLeave={e => (e.currentTarget.style.background = TEAL)}
               data-testid="nav-contact"
               title={t("nav.getInTouch")}
             >
@@ -366,48 +363,20 @@ export default function Home() {
               />
             </picture>
             {/* Warm vellum fade on right edge */}
-            <div
-              style={{
-                position: "absolute",
-                insetBlock: 0,
-                right: 0,
-                width: "10rem",
-                background: `linear-gradient(to right, transparent, ${V50})`,
-              }}
-            />
+            <div className="wk-hero-fade" />
             {/* Subtle warm overlay on photo */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: `${V50}`,
-                opacity: 0.06,
-                mixBlendMode: "multiply",
-              }}
-            />
+            <div className="wk-hero-overlay" />
           </div>
 
           {/* Right — content column */}
           <div className="wk-hero-content" data-testid="hero-content-col">
             {/* Mobile headshot */}
             <div
-              className="wk-anim-fade-scale wk-mobile-hidden"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "2rem",
-              }}
+              className="wk-anim-fade-scale wk-mobile-headshot wk-mobile-hidden"
               data-testid="hero-photo-mobile"
             >
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: "-4px",
-                    borderRadius: "var(--radius-lg)",
-                    border: `1px solid ${V300}`,
-                  }}
-                />
+              <div className="wk-mobile-headshot-frame">
+                <div className="wk-mobile-headshot-border" />
                 <picture>
                   <source
                     srcSet={`${headshotAvif1x} 350w, ${headshotAvif} 700w`}
@@ -429,13 +398,7 @@ export default function Home() {
                     width={700}
                     height={700}
                     sizes="336px"
-                    style={{
-                      width: "10.5rem",
-                      height: "10.5rem",
-                      objectFit: "cover",
-                      objectPosition: "center top",
-                      borderRadius: "var(--radius-lg)",
-                    }}
+                    className="wk-mobile-headshot-img"
                   />
                 </picture>
               </div>
@@ -448,20 +411,11 @@ export default function Home() {
             >
               {/* Name */}
               <h1
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 500,
-                  fontSize: "clamp(2.4rem, 5.5vw, 4rem)",
-                  lineHeight: 1.08,
-                  letterSpacing: "-0.015em",
-                  color: INK,
-                  marginBottom: "0.9rem",
-                  textWrap: "balance",
-                }}
+                className="wk-hero-heading"
                 data-testid="hero-name"
               >
                 Humberto{" "}
-                <span style={{ fontStyle: "italic", color: TEAL }}>
+                <span className="wk-hero-name-accent">
                   &ldquo;Bert&rdquo;
                 </span>{" "}
                 Bello
@@ -469,13 +423,7 @@ export default function Home() {
 
               {/* Title / subtitle */}
               <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--fs-md)",
-                  color: V500,
-                  marginBottom: "1.75rem",
-                  lineHeight: 1.55,
-                }}
+                className="wk-hero-subtitle"
                 data-testid="hero-title"
               >
                 {t("hero.title")}
@@ -495,27 +443,10 @@ export default function Home() {
                     style={{ animationDelay: `${0.3 + i * 0.07}s` }}
                     data-testid={`stat-${stat.key}`}
                   >
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 600,
-                        fontSize: "var(--fs-xl)",
-                        color: TEAL,
-                        lineHeight: 1,
-                        marginBottom: "0.2rem",
-                      }}
-                    >
+                    <div className="wk-stat-value">
                       {stat.value}
                     </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-ui)",
-                        fontSize: "var(--fs-xs)",
-                        fontWeight: 500,
-                        color: V500,
-                        letterSpacing: "0.03em",
-                      }}
-                    >
+                    <div className="wk-stat-label">
                       {t(`hero.stats.${stat.key}`)}
                     </div>
                   </div>
@@ -523,33 +454,16 @@ export default function Home() {
               </div>
 
               {/* Bullets */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.5rem" }}>
+              <div className="wk-bullet-list">
                 {heroBullets.map((point, i) => (
                   <div
                     key={i}
-                    className="wk-anim-fade-left-sm"
-                    style={{ animationDelay: `${0.5 + i * 0.1}s`, display: "flex", alignItems: "flex-start", gap: "0.625rem" }}
+                    className="wk-bullet-row wk-anim-fade-left-sm"
+                    style={{ animationDelay: `${0.5 + i * 0.1}s` }}
                     data-testid={`hero-bullet-${i}`}
                   >
-                    <div
-                      style={{
-                        width: "5px",
-                        height: "5px",
-                        borderRadius: "50%",
-                        background: TEAL,
-                        flexShrink: 0,
-                        marginTop: "0.5rem",
-                      }}
-                    />
-                    <p
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "var(--fs-sm)",
-                        color: V700,
-                        lineHeight: 1.6,
-                        margin: 0,
-                      }}
-                    >
+                    <div className="wk-bullet-dot" />
+                    <p className="wk-bullet-text">
                       {point}
                     </p>
                   </div>
@@ -557,7 +471,7 @@ export default function Home() {
               </div>
 
               {/* Compliance / tech tags */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem", marginBottom: "2rem" }}>
+              <div className="wk-tag-list" style={{ marginBottom: "2rem" }}>
                 {["GDPR", "HIPAA", "SOX", "SOC", "FHIR", "AWS", "GCP", "Azure", "Gen AI"].map((tag) => (
                   <Tag key={tag} label={tag} accent />
                 ))}
@@ -565,24 +479,11 @@ export default function Home() {
 
               {/* Credential badge */}
               <div
-                className="wk-anim-fade-up-sm"
-                style={{
-                  animationDelay: "0.85s",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "var(--font-ui)",
-                  fontSize: "var(--fs-xs)",
-                  fontWeight: 500,
-                  color: V500,
-                  border: `1px solid ${V300}`,
-                  borderRadius: "var(--radius-pill)",
-                  padding: "5px 14px",
-                  marginBottom: "2rem",
-                }}
+                className="wk-cred-badge wk-anim-fade-up-sm"
+                style={{ animationDelay: "0.85s" }}
                 data-testid="hero-credential-badge"
               >
-                <Shield size={11} style={{ color: TEAL }} />
+                <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 {t("hero.badge")}
               </div>
 
@@ -590,23 +491,10 @@ export default function Home() {
               <div style={{ display: "block" }}>
                 <button
                   onClick={() => scrollTo("skills")}
-                  className="wk-anim-bounce-y"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                    fontFamily: "var(--font-ui)",
-                    fontSize: "var(--fs-xs)",
-                    fontWeight: 500,
-                    color: V500,
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    letterSpacing: "0.04em",
-                  }}
+                  className="wk-scroll-hint wk-anim-bounce-y"
                   data-testid="hero-scroll-hint"
                 >
-                  {t("hero.scrollHint")} <ChevronDown size={14} />
+                  {t("hero.scrollHint")} <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                 </button>
               </div>
             </div>
@@ -629,63 +517,23 @@ export default function Home() {
 
           <div className="wk-grid-skills">
             {skillCategories.map((cat, i) => {
-              const Icon = cat.icon;
               const items = skillItems(cat.key);
               return (
                 <FadeInSection key={cat.key} delay={i * 0.07}>
                   <div className="wk-card wk-card-skills" data-testid={`skill-card-${cat.key}`}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
-                      <div
-                        style={{
-                          width: "2.25rem",
-                          height: "2.25rem",
-                          borderRadius: "var(--radius-md)",
-                          background: "rgba(27,78,74,0.08)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <Icon size={17} style={{ color: TEAL }} />
+                    <div className="wk-card-header-lg">
+                      <div className="wk-icon-box">
+                        <SvgIcon name={cat.icon} className="wk-icon-md" />
                       </div>
-                      <h3
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 600,
-                          fontSize: "var(--fs-base)",
-                          color: INK,
-                          margin: 0,
-                        }}
-                      >
+                      <h3 className="wk-card-title">
                         {t(`skills.categories.${cat.key}.title`)}
                       </h3>
                     </div>
 
-                    <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+                    <ul className="wk-dot-list">
                       {items.map((item, j) => (
-                        <li
-                          key={j}
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "0.5rem",
-                            fontFamily: "var(--font-body)",
-                            fontSize: "var(--fs-sm)",
-                            color: V500,
-                            lineHeight: 1.55,
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "4px",
-                              height: "4px",
-                              borderRadius: "50%",
-                              background: V300,
-                              flexShrink: 0,
-                              marginTop: "0.46rem",
-                            }}
-                          />
+                        <li key={j} className="wk-dot-item">
+                          <div className="wk-dot-marker" />
                           {item}
                         </li>
                       ))}
@@ -715,67 +563,27 @@ export default function Home() {
             {experienceEntries.map((exp, i) => (
               <FadeInSection key={i} delay={i * 0.07}>
                 <div className="wk-card wk-card-experience" data-testid={`exp-card-${i}`}>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", marginBottom: "0.6rem" }}>
-                    <div
-                      style={{
-                        width: "2rem",
-                        height: "2rem",
-                        borderRadius: "var(--radius-sm)",
-                        background: "rgba(27,78,74,0.07)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                        marginTop: "1px",
-                      }}
-                    >
-                      <Building2 size={14} style={{ color: TEAL }} />
+                  <div className="wk-card-header-sm">
+                    <div className="wk-icon-box-sm">
+                      <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
                     </div>
                     <div>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-ui)",
-                          fontSize: "var(--fs-xs)",
-                          fontWeight: 600,
-                          letterSpacing: "0.07em",
-                          textTransform: "uppercase",
-                          color: V500,
-                          marginBottom: "1px",
-                        }}
-                      >
+                      <p className="wk-card-eyebrow">
                         {exp.company}
                       </p>
-                      <h3
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontWeight: 600,
-                          fontSize: "var(--fs-base)",
-                          color: INK,
-                          lineHeight: 1.3,
-                          margin: 0,
-                        }}
-                      >
+                      <h3 className="wk-card-title">
                         {exp.highlight}
                       </h3>
                     </div>
                   </div>
 
-                  <div style={{ borderTop: `0.5px solid ${V200}`, marginBottom: "0.75rem" }} />
+                  <hr className="wk-card-rule" />
 
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--fs-sm)",
-                      color: V500,
-                      lineHeight: 1.65,
-                      flex: 1,
-                      marginBottom: "1rem",
-                    }}
-                  >
+                  <p className="wk-card-text">
                     {exp.description}
                   </p>
 
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                  <div className="wk-tag-list">
                     {expTags[i].map((tag) => (
                       <Tag key={tag} label={tag} />
                     ))}
@@ -802,55 +610,21 @@ export default function Home() {
 
           <div className="wk-grid-clients">
             {clientNames.map((name, i) => {
-              const Icon = clientIcons[i];
+              const iconName = clientIcons[i];
               const catKey = clientKeys[i];
               return (
                 <FadeInSection key={name} delay={i * 0.06}>
                   <div
                     className="wk-card wk-card-client"
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-2)";
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(-1px)";
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-1)";
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    }}
                     data-testid={`client-card-${i}`}
                   >
-                    <div
-                      style={{
-                        width: "2.75rem",
-                        height: "2.75rem",
-                        borderRadius: "var(--radius-md)",
-                        background: "rgba(27,78,74,0.07)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        margin: "0 auto 0.625rem",
-                      }}
-                    >
-                      <Icon size={20} style={{ color: TEAL }} />
+                    <div className="wk-icon-box-lg">
+                      <SvgIcon name={iconName} className="wk-icon-md" />
                     </div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 600,
-                        fontSize: "var(--fs-sm)",
-                        color: INK,
-                        marginBottom: "0.25rem",
-                      }}
-                    >
+                    <h3 className="wk-card-client-name">
                       {name}
                     </h3>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-ui)",
-                        fontSize: "var(--fs-xs)",
-                        color: V500,
-                        letterSpacing: "0.03em",
-                      }}
-                    >
+                    <p className="wk-card-category">
                       {t(`clients.categories.${catKey}`)}
                     </p>
                   </div>
@@ -862,112 +636,37 @@ export default function Home() {
           {/* ── CTA Banner ── */}
           <FadeInSection>
             <div
-              className="wk-card"
-              style={{
-                padding: "3.5rem 2rem",
-                textAlign: "center",
-                position: "relative",
-                overflow: "hidden",
-                boxShadow: "var(--shadow-2)",
-              }}
+              className="wk-card wk-cta-card"
               data-testid="cta-banner"
             >
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  insetInline: 0,
-                  height: "3px",
-                  background: TEAL,
-                  borderRadius: "var(--radius-lg) var(--radius-lg) 0 0",
-                  opacity: 0.6,
-                }}
-              />
+              <div className="wk-cta-accent" />
 
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "var(--font-ui)",
-                  fontSize: "var(--fs-xs)",
-                  fontWeight: 600,
-                  letterSpacing: "0.07em",
-                  textTransform: "uppercase",
-                  color: TEAL,
-                  border: `1px solid ${V300}`,
-                  borderRadius: "var(--radius-sm)",
-                  padding: "4px 12px",
-                  marginBottom: "1.25rem",
-                }}
-              >
-                <Zap size={11} />
+              <div className="wk-cta-pill">
+                <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 {t("cta.badge")}
               </div>
 
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 500,
-                  fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)",
-                  color: INK,
-                  letterSpacing: "-0.01em",
-                  marginBottom: "0.75rem",
-                  lineHeight: 1.2,
-                }}
-              >
+              <h3 className="wk-cta-heading">
                 {t("cta.title")}
               </h3>
 
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--fs-md)",
-                  color: V500,
-                  maxWidth: "36rem",
-                  margin: "0 auto 1.75rem",
-                  lineHeight: 1.6,
-                }}
-              >
+              <p className="wk-cta-text">
                 {t("cta.subtitle")}
               </p>
 
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem", justifyContent: "center" }}>
+              <div className="wk-btn-group">
                 <a
                   href="mailto:humberto.bello@protonmail.com"
-                  className="wk-btn-cta"
-                  style={{
-                    border: `1px solid ${TEAL}`,
-                    boxShadow: "var(--shadow-2)",
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = TEAL_6;
-                    e.currentTarget.style.borderColor = TEAL_6;
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = TEAL;
-                    e.currentTarget.style.borderColor = TEAL;
-                  }}
+                  className="wk-btn-cta wk-btn-cta-shadow"
                   data-testid="cta-email"
                 >
-                  {t("cta.email")} <ArrowRight size={15} />
+                  {t("cta.email")} <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="wk-btn-outline"
-                  style={{
-                    color: V700,
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = TEAL;
-                    e.currentTarget.style.color = TEAL;
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = V300;
-                    e.currentTarget.style.color = V700;
-                  }}
+                  className="wk-btn-outline wk-btn-outline-dark"
                   data-testid="cta-linkedin"
                 >
                   {t("cta.linkedin")}
@@ -976,18 +675,7 @@ export default function Home() {
                   href="https://github.com/humbertobellor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="wk-btn-outline"
-                  style={{
-                    color: V700,
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = TEAL;
-                    e.currentTarget.style.color = TEAL;
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = V300;
-                    e.currentTarget.style.color = V700;
-                  }}
+                  className="wk-btn-outline wk-btn-outline-dark"
                   data-testid="cta-github"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -997,18 +685,7 @@ export default function Home() {
                   href="https://substack.com/@humbertobellor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="wk-btn-outline"
-                  style={{
-                    color: V700,
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = TEAL;
-                    e.currentTarget.style.color = TEAL;
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = V300;
-                    e.currentTarget.style.color = V700;
-                  }}
+                  className="wk-btn-outline wk-btn-outline-dark"
                   data-testid="cta-substack"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
@@ -1025,43 +702,17 @@ export default function Home() {
       {/* ───────────── FOOTER ───────────── */}
       <footer className="wk-footer" data-testid="footer">
         <div className="wk-container">
-          <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", flexWrap: "wrap", justifyContent: "center" }}>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                fontSize: "var(--fs-md)",
-                color: INK,
-              }}
-            >
+          <div className="wk-footer-inner">
+            <span className="wk-footer-name">
               Humberto &ldquo;Bert&rdquo; Bello
             </span>
-            <span style={{ color: V300, fontSize: "var(--fs-sm)" }}>|</span>
-            <span
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize: "var(--fs-xs)",
-                fontWeight: 500,
-                color: V500,
-                letterSpacing: "0.03em",
-              }}
-            >
+            <span className="wk-footer-sep">|</span>
+            <span className="wk-footer-role">
               {t("footer.role")}
             </span>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-              fontFamily: "var(--font-ui)",
-              fontSize: "var(--fs-xs)",
-              fontWeight: 500,
-              color: V500,
-              letterSpacing: "0.03em",
-            }}
-          >
-            <MapPin size={12} style={{ color: TEAL }} />
+          <div className="wk-footer-location">
+            <svg className="wk-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             {t("footer.location")}
           </div>
         </div>
