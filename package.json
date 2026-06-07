@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "vite build --config vite.config.ts && cp -r dist/public/. ../..",
-    "serve": "node server.mjs",
+    "dev": "npm run build && open dist/index.html",
+    "build": "node scripts/build.mjs",
+    "serve": "npx serve dist",
     "typecheck": "tsc -p tsconfig.json --noEmit && pnpm --filter @workspace/scripts run check-fonts"
   },
   "devDependencies": {
