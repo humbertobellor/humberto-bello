@@ -67,7 +67,10 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   4. CHANGELOG component is removed — no API client dependency exists in build output
   5. LinkedIn profile link resolves to `https://www.linkedin.com/in/humberto-bello/` — no placeholder URL
   6. `package.json` lists only necessary runtime and dev dependencies — no Tailwind, shadcn, framer-motion, lucide-react, etc.
-**Plans**: TBD
+**Plans**: 2 plans (all execute)
+**Wave 1** *(parallel)*:
+- [ ] `03-01` — Asset copy pipeline (fonts + images to dist/)
+- [ ] `03-02` — Dead code cleanup (delete shadcn/ui, Changelog, FadeIn; clean package.json; fix LinkedIn URL)
 
 ### Phase 4: SEO + i18n
 **Goal**: Full multilingual support and SEO architecture for GitHub Pages deployment
