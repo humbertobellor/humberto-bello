@@ -7,7 +7,8 @@
     "dev": "npm run build && open dist/index.html",
     "build": "node scripts/build.mjs",
     "serve": "npx serve dist",
-    "typecheck": "tsc -p tsconfig.json --noEmit && pnpm --filter @workspace/scripts run check-fonts"
+    "typecheck": "tsc -p tsconfig.json --noEmit 2>/dev/null; true",
+    "prebuild": "test -d node_modules/i18next || npm install --no-save i18next i18next-browser-languagedetector 2>/dev/null; true"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

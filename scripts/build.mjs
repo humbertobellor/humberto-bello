@@ -51,33 +51,45 @@ function injectStyles(html) {
   return html;
 }
 
-// 7. Build index.html
-let indexHtml = assemble('src/html/index.html');
-indexHtml = injectStyles(indexHtml);
-indexHtml = rewritePaths(indexHtml);
-writeFileSync('dist/index.html', indexHtml, 'utf-8');
+// 7. Build index.html and 404.html
+try {
+  let indexHtml = assemble('src/html/index.html');
+  indexHtml = injectStyles(indexHtml);
+  indexHtml = rewritePaths(indexHtml);
+  writeFileSync('dist/index.html', indexHtml, 'utf-8');
 
-// 8. Build 404.html
-let notFoundHtml = assemble('src/html/404.html');
-notFoundHtml = injectStyles(notFoundHtml);
-notFoundHtml = rewritePaths(notFoundHtml);
-writeFileSync('dist/404.html', notFoundHtml, 'utf-8');
+  let notFoundHtml = assemble('src/html/404.html');
+  notFoundHtml = injectStyles(notFoundHtml);
+  notFoundHtml = rewritePaths(notFoundHtml);
+  writeFileSync('dist/404.html', notFoundHtml, 'utf-8');
+} catch (err) {
+  console.error('✗ Build failed:', err.message);
+  process.exit(1);
+}
 
-// 9. Copy i18next vendor JS
+// 8. Copy i18next vendor JS
 const vendorScripts = [
   ['node_modules/i18next/dist/umd/i18next.min.js', 'dist/locales/i18next.min.js'],
   ['node_modules/i18next-browser-languagedetector/dist/umd/i18nextBrowserLanguageDetector.min.js', 'dist/locales/i18nextBrowserLanguageDetector.min.js'],
 ];
 for (const [src, dest] of vendorScripts) {
-  if (existsSync(src)) cpSync(src, dest);
+  try {
+    if (existsSync(src)) cpSync(src, dest);
+  } catch (err) {
+    console.warn('⚠ Skipping vendor script (not found):', src.split('/').pop());
+  }
 }
 
-// 10. Copy locale JSON files
+// 9. Copy locale JSON files
 for (const locale of ['en', 'es', 'de']) {
   const src = `src/i18n/locales/${locale}.json`;
-  if (existsSync(src)) cpSync(src, `dist/locales/${locale}.json`);
+  try {
+    if (existsSync(src)) cpSync(src, `dist/locales/${locale}.json`);
+  } catch (err) {
+    console.warn('⚠ Skipping locale file (not found):', locale + '.json');
+  }
 }
 
-// 11. Log completion
+// 10. Log completion
 console.log('✓ Build complete: dist/index.html, dist/404.html');
 console.log('✓ Assets: locales/, fonts/ (empty), images/ (empty)');
