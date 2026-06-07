@@ -8,7 +8,7 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 
 - [x] **Phase 1: CSS Architecture** — Extract inline styles, consolidate Wolknitive tokens, replace Tailwind/framer-motion/lucide with hand-authored CSS and vanilla JS (2026-06-07)
 - [ ] **Phase 2: Build System** — Create Node build script, assemble HTML partials, remove React/Vite/Express from output
-- [ ] **Phase 3: Asset Pipeline + Dead Code Cleanup** — Copy fonts/images to output, remove shadcn/ui, api-client, CHANGELOG, fix LinkedIn URL
+- [x] **Phase 3: Asset Pipeline + Dead Code Cleanup** — Copy fonts/images to output, remove shadcn/ui, api-client, CHANGELOG, fix LinkedIn URL (completed 2026-06-07)
 - [ ] **Phase 4: SEO + i18n** — Per-locale meta tags, JSON-LD, sitemap, language switcher with client-side i18next
 - [ ] **Phase 5: Deploy Configuration** — Configure GitHub Pages output, add .nojekyll, verify live site
 
@@ -106,6 +106,6 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 |-------|----------------|--------|-----------|
 | 1. CSS Architecture | 4/4 | Complete | 2026-06-07 |
 | 2. Build System | 3/3 | Complete | 2026-06-07 |
-| 3. Asset Pipeline + Cleanup | 0/0 | Not started | - |
+| 3. Asset Pipeline + Cleanup | 2/2 | Complete   | 2026-06-07 |
 | 4. SEO + i18n | 0/0 | Not started | - |
 | 5. Deploy Configuration | 0/0 | Not started | - |
