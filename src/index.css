@@ -1,0 +1,13 @@
+@import './styles/wolknitive-tokens.css';
+@import './styles/wolknitive-base.css';
+@import './styles/wolknitive-animations.css';
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+}

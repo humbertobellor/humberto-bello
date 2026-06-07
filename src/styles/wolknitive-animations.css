@@ -1,0 +1,59 @@
+/* ============================================================
+   Wolknitive — Animations & keyframes
+   Hero entrance animations + scroll-triggered reveal classes.
+   ============================================================ */
+
+/* ── Hero entrance animations (preserved from index.css) ── */
+@keyframes wkFadeSlideLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes wkFadeSlideRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes wkFadeScaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes wkFadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wkFadeSlideLeftSm {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes wkFadeSlideUpSm {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wkBounceY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+@keyframes wkFadeSlideUpScroll {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wk-anim-fade-left    { will-change: transform, opacity; animation: wkFadeSlideLeft   1s    cubic-bezier(0.22, 1, 0.36, 1) both; }
+.wk-anim-fade-right   { will-change: transform, opacity; animation: wkFadeSlideRight  0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.wk-anim-fade-scale   { will-change: transform, opacity; animation: wkFadeScaleIn     0.7s  cubic-bezier(0.22, 1, 0.36, 1) both; }
+.wk-anim-fade-up      { will-change: transform, opacity; animation: wkFadeSlideUp     0.45s ease both; }
+.wk-anim-fade-left-sm { will-change: transform, opacity; animation: wkFadeSlideLeftSm 0.45s ease both; }
+.wk-anim-fade-up-sm   { will-change: transform, opacity; animation: wkFadeSlideUpSm   0.45s ease both; }
+.wk-anim-bounce-y     { will-change: transform; animation: wkBounceY 2.4s ease-in-out infinite; }
+
+/* ── Scroll-triggered reveal (replaces framer-motion FadeInSection) ── */
+.wk-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wk-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
