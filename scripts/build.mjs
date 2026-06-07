@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const basePath = process.env.BASE_PATH || '';
 
 // 2. Scaffold output directories
-const dirs = ['dist', 'dist/locales', 'dist/fonts', 'dist/images'];
+const dirs = ['dist', 'dist/fonts', 'dist/images'];
 for (const d of dirs) {
   if (!existsSync(d)) mkdirSync(d, { recursive: true });
 }
@@ -51,13 +51,80 @@ function injectStyles(html) {
   return html;
 }
 
-// 7. Build index.html and 404.html
-try {
-  let indexHtml = assemble('src/html/index.html');
-  indexHtml = injectStyles(indexHtml);
-  indexHtml = rewritePaths(indexHtml);
-  writeFileSync('dist/index.html', indexHtml, 'utf-8');
+// Load locale files for build-time content replacement
+const locales = ['en', 'es', 'de'];
+const localeData = {};
+for (const loc of locales) {
+  localeData[loc] = JSON.parse(readFileSync(`src/i18n/locales/${loc}.json`, 'utf-8'));
+}
 
+// Replace data-i18n attributes with locale text content
+function replaceI18n(html, data, prefix = '') {
+  return html.replace(/data-i18n="([^"]+)"/g, (_, key) => {
+    const parts = key.split('.');
+    let value = data;
+    for (const part of parts) {
+      const arrMatch = part.match(/^(\w+)\[(\d+)\]$/);
+      if (arrMatch) {
+        value = value[arrMatch[1]];
+        if (value) value = value[parseInt(arrMatch[2])];
+      } else {
+        value = value ? value[part] : undefined;
+      }
+    }
+    if (typeof value === 'string') {
+      return `>${value}<`;
+    }
+    return `>${key}<`;
+  });
+}
+
+// Set <html lang> attribute per locale
+function setHtmlLang(html, lang) {
+  return html.replace(/<html lang="[^"]*">/, `<html lang="${lang}">`);
+}
+
+// Set active locale on language switcher links
+function setActiveLocale(html, locale) {
+  // Remove data-active from all language switcher links
+  html = html.replace(/(<a href="\/dossier\/[^"]*" class="wk-nav-link")( data-active="true")?/g, '$1');
+  // Set data-active on the correct locale link
+  const localePath = locale === 'en' ? '/dossier/' : `/dossier/${locale}/`;
+  html = html.replace(
+    new RegExp(`(href="${localePath}" class="wk-nav-link")`),
+    '$1 data-active="true"'
+  );
+  return html;
+}
+
+// 7. Build per-locale HTML files and 404.html
+try {
+  for (const locale of locales) {
+    const isDefault = locale === 'en';
+    let html = assemble('src/html/index.html');
+
+    // Replace data-i18n attributes with locale content
+    html = replaceI18n(html, localeData[locale]);
+
+    // Set <html lang> attribute
+    html = setHtmlLang(html, locale);
+
+    // Set active locale on language switcher
+    html = setActiveLocale(html, locale);
+
+    // Inject CSS
+    html = injectStyles(html);
+
+    // Rewrite asset paths with BASE_PATH
+    html = rewritePaths(html);
+
+    // Write output
+    const outDir = isDefault ? 'dist' : `dist/${locale}`;
+    if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
+    writeFileSync(`${outDir}/index.html`, html, 'utf-8');
+  }
+
+  // Build 404.html (English only)
   let notFoundHtml = assemble('src/html/404.html');
   notFoundHtml = injectStyles(notFoundHtml);
   notFoundHtml = rewritePaths(notFoundHtml);
@@ -65,29 +132,6 @@ try {
 } catch (err) {
   console.error('✗ Build failed:', err.message);
   process.exit(1);
-}
-
-// 10. Copy i18next vendor JS
-const vendorScripts = [
-  ['node_modules/i18next/dist/umd/i18next.min.js', 'dist/locales/i18next.min.js'],
-  ['node_modules/i18next-browser-languagedetector/dist/umd/i18nextBrowserLanguageDetector.min.js', 'dist/locales/i18nextBrowserLanguageDetector.min.js'],
-];
-for (const [src, dest] of vendorScripts) {
-  try {
-    if (existsSync(src)) cpSync(src, dest);
-  } catch (err) {
-    console.warn('⚠ Skipping vendor script (not found):', src.split('/').pop());
-  }
-}
-
-// 11. Copy locale JSON files
-for (const locale of ['en', 'es', 'de']) {
-  const src = `src/i18n/locales/${locale}.json`;
-  try {
-    if (existsSync(src)) cpSync(src, `dist/locales/${locale}.json`);
-  } catch (err) {
-    console.warn('⚠ Skipping locale file (not found):', locale + '.json');
-  }
 }
 
 // 8. Copy font files
@@ -117,5 +161,5 @@ for (const f of headshotFiles) {
 }
 
 // 12. Log completion
-console.log('✓ Build complete: dist/index.html, dist/404.html');
-console.log('✓ Assets: locales/, fonts/, images/');
+console.log('✓ Build complete: dist/index.html, dist/es/index.html, dist/de/index.html, dist/404.html');
+console.log('✓ Assets: fonts/, images/');

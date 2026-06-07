@@ -7,15 +7,10 @@
     "dev": "npm run build && open dist/index.html",
     "build": "node scripts/build.mjs",
     "serve": "npx serve dist",
-    "typecheck": "tsc -p tsconfig.json --noEmit 2>/dev/null; true",
-    "prebuild": "test -d node_modules/i18next || npm install --no-save i18next i18next-browser-languagedetector 2>/dev/null; true"
+    "typecheck": "tsc -p tsconfig.json --noEmit 2>/dev/null; true"
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "typescript": "^5.9.2"
-  },
-  "dependencies": {
-    "i18next": "^26.0.6",
-    "i18next-browser-languagedetector": "^8.2.1"
   }
 }
