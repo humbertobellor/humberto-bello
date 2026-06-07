@@ -27,7 +27,7 @@ key-decisions:
   - "Hover states: Teal-400 #34736B (D-07)"
   - "Shadows adjusted: lighter vellum-colored highlights + darker blur for visibility on dark bg"
 requirements-completed: [INF-05]
-duration: 5min
+duration: 20min
 completed: 2026-06-07
 ---
 
@@ -55,6 +55,7 @@ completed: 2026-06-07
 Each task was committed atomically:
 
 1. **task 1: Add dark mode @media block** — `ae340f6` (feat)
+2. **task 2: Visual verification (human-verify)** — ✅ Approved by user
 
 ## Files Modified
 
