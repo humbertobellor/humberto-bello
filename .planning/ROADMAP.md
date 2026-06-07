@@ -44,10 +44,17 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   4. i18next and its locale JSON files load as client-side static assets — no server-side rendering, no locale files in build output path
   5. `dist/404.html` is generated alongside the main page with matching layout and navigation
   6. CSP meta tag with restrictive directives is present in the output `<head>`
-**Plans**:
-- [ ] 02-01-PLAN.md — HTML partials and templates
-- [ ] 02-02-PLAN.md — Build script and package.json
-- [ ] 02-03-PLAN.md — i18next wiring, CSP, verification
+**Plans**: 3 plans (all execute)
+**Wave 1** *(parallel)*:
+- [x] `02-01` — HTML partials and templates
+- [x] `02-02` — Build script and package.json
+**Wave 2** *(depends on Wave 1)*:
+- [x] `02-03` — i18next wiring, CSP, verification
+**Cross-cutting constraints:**
+- Build output must be 100% static files (no server needed)
+- All CSS inlined in `<style>` blocks — no external CSS files
+- i18next self-hosted from `dist/locales/` — no CDN for CSP compliance
+- All asset paths use `BASE_PATH` env var for GitHub Pages subdirectory support
 
 ### Phase 3: Asset Pipeline + Dead Code Cleanup
 **Goal**: All static assets (fonts, images) copied to output with correct relative paths, dead code removed from the tree
