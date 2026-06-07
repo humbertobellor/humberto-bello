@@ -85,7 +85,10 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   6. Canonical URL is set to `https://humbertobellor.github.io/dossier/`
   7. `sitemap.xml` includes all 3 locale variants with correct hreflang annotations and x-default
   8. `robots.txt` points to the new sitemap URL and allows crawling
-**Plans**: TBD
+**Plans**: 2 plans (all execute)
+**Wave 1** *(parallel)*:
+- [ ] `04-01` — Build script locale generation, HTML partials data-i18n, language switcher, package cleanup
+- [ ] `04-02` — SEO metadata per locale, sitemap generation, robots.txt update
 **UI hint**: yes
 
 ### Phase 5: Deploy Configuration
@@ -107,5 +110,5 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 | 1. CSS Architecture | 4/4 | Complete | 2026-06-07 |
 | 2. Build System | 3/3 | Complete | 2026-06-07 |
 | 3. Asset Pipeline + Cleanup | 2/2 | Complete   | 2026-06-07 |
-| 4. SEO + i18n | 0/0 | Not started | - |
+| 4. SEO + i18n | 0/2 | Planning | - |
 | 5. Deploy Configuration | 0/0 | Not started | - |
