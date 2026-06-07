@@ -32,10 +32,6 @@
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(4px); }
 }
-@keyframes wkFadeSlideUpScroll {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 .wk-anim-fade-left    { will-change: transform, opacity; animation: wkFadeSlideLeft   1s    cubic-bezier(0.22, 1, 0.36, 1) both; }
 .wk-anim-fade-right   { will-change: transform, opacity; animation: wkFadeSlideRight  0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }

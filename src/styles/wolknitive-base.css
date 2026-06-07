@@ -147,9 +147,6 @@ body {
   color: var(--accent);
   background: var(--accent-soft);
 }
-.wk-nav-link.active {
-  color: var(--accent);
-}
 
 /* 8. Button Classes */
 .wk-btn-cta {
@@ -255,14 +252,6 @@ body {
     padding: 0 3rem 0 0;
   }
 }
-.wk-hero-photo {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .wk-hero-photo {
-    width: 50%;
-  }
-}
 .wk-hero-panel {
   display: none;
 }
@@ -293,8 +282,7 @@ body {
 /* 12. Icon Size Classes (D-23) */
 .wk-icon-sm { width: 16px; height: 16px; }
 .wk-icon-md { width: 20px; height: 20px; }
-.wk-icon-lg { width: 24px; height: 24px; }
-svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
+svg.wk-icon-sm, svg.wk-icon-md {
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
@@ -303,8 +291,6 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
 /* 13. Section Background Variants */
 .wk-bg-sunken { background: var(--bg-sunken); }
 .wk-bg-default { background: var(--bg); }
-.wk-bg-elevated { background: var(--bg-elevated); }
-
 /* 14. Mobile Nav Toggle */
 .wk-nav-toggle {
   display: flex;
@@ -586,7 +572,7 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
 }
 
 /* 26. Tag List Wrapper */
-.wk-tag-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.wk-tag-list { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 2rem; }
 
 /* 27. CTA Banner */
 .wk-cta-card {
@@ -640,7 +626,7 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
 .wk-btn-group { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; }
 
 /* 28. Utility Flex Row */
-.wk-flex-row { display: flex; align-items: center; }
+.wk-flex-row { display: flex; align-items: center; gap: 0.625rem; }
 .wk-btn-uppercase { letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* 29. Button Extras */
@@ -719,7 +705,6 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
 /* 31. Print Stylesheet (D-12 through D-15) */
 @media print {
   .wk-nav,
-  .wk-cta-section,
   .wk-scroll-hint,
   .wk-hero-panel { display: none !important; }
 

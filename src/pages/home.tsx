@@ -281,7 +281,7 @@ export default function Home() {
           </div>
 
           {/* Right cluster */}
-          <div className="wk-flex-row" style={{ gap: "0.625rem" }}>
+          <div className="wk-flex-row">
             {/* Language switcher */}
             <div className="wk-lang-switcher">
               {LANGUAGES.map((lang) => (
@@ -358,7 +358,6 @@ export default function Home() {
                 width={700}
                 height={700}
                 sizes="(max-width: 1280px) 50vw, 640px"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
                 data-testid="hero-headshot"
               />
             </picture>
@@ -471,7 +470,7 @@ export default function Home() {
               </div>
 
               {/* Compliance / tech tags */}
-              <div className="wk-tag-list" style={{ marginBottom: "2rem" }}>
+              <div className="wk-tag-list">
                 {["GDPR", "HIPAA", "SOX", "SOC", "FHIR", "AWS", "GCP", "Azure", "Gen AI"].map((tag) => (
                   <Tag key={tag} label={tag} accent />
                 ))}
@@ -488,7 +487,7 @@ export default function Home() {
               </div>
 
               {/* Scroll hint */}
-              <div style={{ display: "block" }}>
+              <div>
                 <button
                   onClick={() => scrollTo("skills")}
                   className="wk-scroll-hint wk-anim-bounce-y"
