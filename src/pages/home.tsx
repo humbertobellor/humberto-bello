@@ -1,12 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n/i18n";
-import headshotWebp from "@assets/headshot-corp_1776959044728.webp";
-import headshotAvif from "@assets/headshot-corp_1776959044728.avif";
-import headshotWebp1x from "@assets/headshot-corp_1776959044728@1x.webp";
-import headshotAvif1x from "@assets/headshot-corp_1776959044728@1x.avif";
-import { Changelog } from "../components/Changelog";
-
 const clientIcons = ["barChart", "landmark", "creditCard", "smartphone", "activity", "shoppingCart"];
 const clientKeys  = ["financialServices", "banking", "fintech", "telecom", "healthtech", "retail"] as const;
 const clientNames = ["Equifax", "Fifth Third Bank", "FISERV", "Verizon / MVNO", "J&J — Medical Devices", "Dollar General"];
@@ -715,7 +709,6 @@ export default function Home() {
             {t("footer.location")}
           </div>
         </div>
-        <Changelog />
       </footer>
     </div>
   );
