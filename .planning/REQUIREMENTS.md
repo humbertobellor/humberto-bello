@@ -94,54 +94,54 @@ Deferred to future iteration.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STC-01 | | Pending |
-| STC-02 | | Pending |
-| STC-03 | | Pending |
-| STC-04 | | Pending |
-| STC-05 | | Pending |
-| DEP-01 | | Pending |
-| DEP-02 | | Pending |
-| DEP-03 | | Pending |
-| DEP-04 | | Pending |
-| DEP-05 | | Pending |
-| DEP-06 | | Pending |
-| DEP-07 | | Pending |
-| DEP-08 | | Pending |
-| DEP-09 | | Pending |
-| DEP-10 | | Pending |
-| VIZ-01 | | Pending |
-| VIZ-02 | | Pending |
-| VIZ-03 | | Pending |
-| VIZ-04 | | Pending |
-| VIZ-05 | | Pending |
-| VIZ-06 | | Pending |
-| VIZ-07 | | Pending |
-| I18-01 | | Pending |
-| I18-02 | | Pending |
-| I18-03 | | Pending |
-| I18-04 | | Pending |
-| SEO-01 | | Pending |
-| SEO-02 | | Pending |
-| SEO-03 | | Pending |
-| SEO-04 | | Pending |
-| SEO-05 | | Pending |
-| SEO-06 | | Pending |
-| INF-01 | | Pending |
-| INF-02 | | Pending |
-| INF-03 | | Pending |
-| INF-04 | | Pending |
-| INF-05 | | Pending |
-| INF-06 | | Pending |
-| INF-07 | | Pending |
-| QLT-01 | | Pending |
-| QLT-02 | | Pending |
-| QLT-03 | | Pending |
-| QLT-04 | | Pending |
+| STC-01 | Phase 2 — Build System | Pending |
+| STC-02 | Phase 1 — CSS Architecture | Pending |
+| STC-03 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| STC-04 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| STC-05 | Phase 2 — Build System | Pending |
+| DEP-01 | Phase 2 — Build System | Pending |
+| DEP-02 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| DEP-03 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| DEP-04 | Phase 1 — CSS Architecture | Pending |
+| DEP-05 | Phase 1 — CSS Architecture | Pending |
+| DEP-06 | Phase 2 — Build System | Pending |
+| DEP-07 | Phase 2 — Build System | Pending |
+| DEP-08 | Phase 2 — Build System | Pending |
+| DEP-09 | Phase 1 — CSS Architecture | Pending |
+| DEP-10 | Phase 2 — Build System | Pending |
+| VIZ-01 | Phase 1 — CSS Architecture | Pending |
+| VIZ-02 | Phase 1 — CSS Architecture | Pending |
+| VIZ-03 | Phase 1 — CSS Architecture | Pending |
+| VIZ-04 | Phase 1 — CSS Architecture | Pending |
+| VIZ-05 | Phase 1 — CSS Architecture | Pending |
+| VIZ-06 | Phase 1 — CSS Architecture | Pending |
+| VIZ-07 | Phase 1 — CSS Architecture | Pending |
+| I18-01 | Phase 4 — SEO + i18n | Pending |
+| I18-02 | Phase 4 — SEO + i18n | Pending |
+| I18-03 | Phase 4 — SEO + i18n | Pending |
+| I18-04 | Phase 4 — SEO + i18n | Pending |
+| SEO-01 | Phase 4 — SEO + i18n | Pending |
+| SEO-02 | Phase 4 — SEO + i18n | Pending |
+| SEO-03 | Phase 4 — SEO + i18n | Pending |
+| SEO-04 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| SEO-05 | Phase 4 — SEO + i18n | Pending |
+| SEO-06 | Phase 4 — SEO + i18n | Pending |
+| INF-01 | Phase 2 — Build System | Pending |
+| INF-02 | Phase 5 — Deploy Configuration | Pending |
+| INF-03 | Phase 2 — Build System | Pending |
+| INF-04 | Phase 5 — Deploy Configuration | Pending |
+| INF-05 | Phase 1 — CSS Architecture | Pending |
+| INF-06 | Phase 1 — CSS Architecture | Pending |
+| INF-07 | Phase 3 — Asset Pipeline + Cleanup | Pending |
+| QLT-01 | Phase 1 — CSS Architecture | Pending |
+| QLT-02 | Phase 1 — CSS Architecture | Pending |
+| QLT-03 | Phase 1 — CSS Architecture | Pending |
+| QLT-04 | Phase 3 — Asset Pipeline + Cleanup | Pending |
 
 **Coverage:**
-- v1 requirements: 42 total
-- Mapped to phases: 0
-- Unmapped: 42 ⚠️
+- v1 requirements: 43 total
+- Mapped to phases: 43
+- Unmapped: 0 ✅
 
 ---
 *Requirements defined: 2026-06-07*
