@@ -2,32 +2,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
 
 <!-- Primary SEO -->
-<title data-i18n="hero.title">Humberto Bello · AI Architect &amp; Engineering Leader | Agentic AI · RAG · Cloud</title>
-<meta name="description" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms. Open to AI architect, engineering director, solopreneur roles." />
+<title data-i18n="seo.title">Humberto Bello · AI Architect &amp; Engineering Leader | Agentic AI · RAG · Cloud</title>
+<meta name="description" data-i18n="seo.description" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms. Open to AI architect, engineering director, solopreneur roles." />
 <meta name="keywords" content="agentic ai, ai architect, ai engineer, rag ai, retrieval augmented generation, engineering manager, engineering director, software engineering director, solopreneur, principal architect, cloud native, llm integration, generative ai" />
 <meta name="robots" content="index, follow" />
 <meta name="author" content="Humberto Bello" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'">
-<link rel="canonical" href="https://humbertobello.replit.app/" />
+<link rel="canonical" href="https://humbertobellor.github.io/dossier/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="profile" />
-<meta property="og:title" content="Humberto Bello · AI Architect &amp; Engineering Leader" />
-<meta property="og:description" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms. Open to AI architect, engineering director, solopreneur roles." />
-<meta property="og:url" content="https://humbertobello.replit.app/" />
-<meta property="og:image" content="https://humbertobello.replit.app/opengraph.jpg" />
+<meta property="og:title" data-i18n="seo.ogTitle" content="Humberto Bello · AI Architect &amp; Engineering Leader" />
+<meta property="og:description" data-i18n="seo.ogDescription" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms." />
+<meta property="og:url" href="https://humbertobellor.github.io/dossier/" />
+<meta property="og:image" content="https://humbertobellor.github.io/dossier/images/opengraph.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" data-i18n="seo.ogLocale" content="en_US" />
 <meta property="og:site_name" content="Humberto Bello — Professional Dossier" />
 <meta property="profile:first_name" content="Humberto" />
 <meta property="profile:last_name" content="Bello" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Humberto Bello · AI Architect &amp; Engineering Leader" />
-<meta name="twitter:description" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, and cloud-native platforms." />
-<meta name="twitter:image" content="https://humbertobello.replit.app/opengraph.jpg" />
+<meta name="twitter:title" data-i18n="seo.twitterTitle" content="Humberto Bello · AI Architect &amp; Engineering Leader" />
+<meta name="twitter:description" data-i18n="seo.twitterDescription" content="AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, and cloud-native platforms." />
+<meta name="twitter:image" content="https://humbertobellor.github.io/dossier/images/opengraph.jpg" />
 
 <!-- JSON-LD structured data -->
 <script type="application/ld+json">
@@ -40,7 +40,7 @@
     "alternateName": "Bert Bello",
     "jobTitle": "Software Engineering | Architecture | Hyperscalers | Applied AI | Solopreneur",
     "description": "AI architect and engineering leader with 20+ years of hands-on experience delivering agentic AI systems, RAG pipelines, cloud-native platforms, and enterprise-scale engineering leadership. Available for engineering director, AI engineer, and solopreneur consulting engagements.",
-    "url": "https://humbertobello.replit.app/",
+    "url": "https://humbertobellor.github.io/dossier/",
     "email": "humberto.bello@protonmail.com",
     "nationality": "US Citizen",
       "sameAs": [
@@ -75,6 +75,15 @@
       "occupationalCategory": "15-1299",
       "skills": "Agentic AI, RAG, LLM Integration, Cloud Architecture, Engineering Leadership"
     }
+  },
+  {
+    "@type": "WebSite",
+    "name": "Humberto Bello — Professional Dossier",
+    "url": "https://humbertobellor.github.io/dossier/",
+    "sameAs": [
+      "https://www.linkedin.com/in/humberto-bello/",
+      "https://github.com/humbertobellor"
+    ]
   }
 }
 </script>
@@ -97,10 +106,6 @@
 <style id="wk-tokens">/* injected by build script */</style>
 <style id="wk-base">/* injected by build script */</style>
 <style id="wk-animations">/* injected by build script */</style>
-
-<!-- i18next vendor scripts (self-hosted, no CDN for CSP compliance) -->
-<script defer src="/locales/i18next.min.js"></script>
-<script defer src="/locales/i18nextBrowserLanguageDetector.min.js"></script>
 
 <!-- IntersectionObserver: scroll-triggered reveal + nav section tracking -->
 <script>
@@ -156,5 +161,27 @@
       }
     }
   });
+
+  // ---- Language switcher: save locale to localStorage before navigating ----
+  document.querySelectorAll('.wk-nav-link[href]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var href = this.getAttribute('href');
+      var match = href.match(/\/dossier\/([a-z]{2})\//);
+      var locale = match ? match[1] : 'en';
+      localStorage.setItem('wk-locale', locale);
+    });
+  });
+})();
+</script>
+
+<!-- Locale redirect: send user to their saved locale on first visit -->
+<script>
+(function() {
+  var locale = localStorage.getItem('wk-locale');
+  if (!locale || locale === 'en') return;
+  var path = window.location.pathname;
+  if (path.indexOf('/' + locale + '/') !== -1) return;
+  if (path.indexOf('/dossier/') === -1) return;
+  window.location.replace('/dossier/' + locale + '/');
 })();
 </script>
