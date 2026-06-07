@@ -25,7 +25,12 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   4. Hero entrance animations play on load, scroll-triggered fade-ins trigger via IntersectionObserver — no framer-motion dependency
   5. lucide-react icon imports are replaced with inline SVGs that render identically; all hover/tap interactions work via CSS `:hover`
   6. Dark mode (`prefers-color-scheme`) and print stylesheets are authored as CSS
-**Plans**: TBD
+**Plans**: 3 plans (all execute)
+**Wave 1** *(parallel)*:
+- `02-01` — HTML partials and templates
+- `02-02` — Build script and package.json
+**Wave 2** *(depends on Wave 1)*:
+- `02-03` — i18next wiring, CSP, verification
 **UI hint**: yes
 
 ### Phase 2: Build System
@@ -39,7 +44,10 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   4. i18next and its locale JSON files load as client-side static assets — no server-side rendering, no locale files in build output path
   5. `dist/404.html` is generated alongside the main page with matching layout and navigation
   6. CSP meta tag with restrictive directives is present in the output `<head>`
-**Plans**: TBD
+**Plans**:
+- [ ] 02-01-PLAN.md — HTML partials and templates
+- [ ] 02-02-PLAN.md — Build script and package.json
+- [ ] 02-03-PLAN.md — i18next wiring, CSP, verification
 
 ### Phase 3: Asset Pipeline + Dead Code Cleanup
 **Goal**: All static assets (fonts, images) copied to output with correct relative paths, dead code removed from the tree
@@ -87,7 +95,7 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. CSS Architecture | 4/4 | Complete | 2026-06-07 |
-| 2. Build System | 0/0 | Not started | - |
+| 2. Build System | 3/3 | Ready to execute | - |
 | 3. Asset Pipeline + Cleanup | 0/0 | Not started | - |
 | 4. SEO + i18n | 0/0 | Not started | - |
 | 5. Deploy Configuration | 0/0 | Not started | - |
