@@ -1,0 +1,376 @@
+/* ============================================================
+   Wolknitive — Base layout & component classes
+   Hand-authored CSS using Wolknitive design tokens.
+   ============================================================ */
+
+/* 1. CSS Reset and Base */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+}
+
+/* 2. Container (D-11) */
+.wk-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
+/* 3. Section Layout */
+.wk-section {
+  padding: 5rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .wk-section { padding: 6rem 1.5rem; }
+}
+
+/* 4. Section Header (eyebrow + heading + subtitle) */
+.wk-section-header { margin-bottom: 3rem; }
+.wk-section-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--fg-1);
+  margin: 0.5rem 0 0;
+}
+.wk-section-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--fs-md, 18px);
+  line-height: 1.6;
+  color: var(--fg-3);
+  margin-top: 0.75rem;
+}
+
+/* 5. Grid Classes (D-10, from UI-SPEC grid layout table) */
+.wk-grid-skills, .wk-grid-experience {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-grid, 20px);
+}
+@media (min-width: 768px) {
+  .wk-grid-skills, .wk-grid-experience {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .wk-grid-skills, .wk-grid-experience {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.wk-grid-clients {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .wk-grid-clients {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* 6. Card Classes */
+.wk-card {
+  background: var(--vellum-100);
+  border: 1px solid var(--vellum-200);
+  border-radius: var(--radius-lg, 10px);
+  padding: 1.375rem 1.5rem;
+  box-shadow: var(--shadow-1);
+  transition: box-shadow 0.2s, background-color 0.2s;
+}
+.wk-card:hover {
+  box-shadow: var(--shadow-2);
+}
+.wk-card-skills {
+  background: var(--bg-elevated);
+}
+.wk-card-experience {
+  background: var(--bg-elevated);
+}
+.wk-card-client {
+  background: var(--bg);
+  border-color: var(--rule-soft);
+  text-align: center;
+  padding: 1.5rem;
+  cursor: default;
+}
+.wk-card-client:hover {
+  background: var(--vellum-100);
+}
+
+/* 7. Nav Classes */
+.wk-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 246, 236, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.wk-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+}
+.wk-nav-links {
+  display: none;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) {
+  .wk-nav-links { display: flex; }
+}
+.wk-nav-link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 500;
+  color: var(--fg-3);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+  border: none;
+  background: transparent;
+}
+.wk-nav-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.wk-nav-link.active {
+  color: var(--accent);
+}
+
+/* 8. Button Classes */
+.wk-btn-cta {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 600;
+  padding: 0.625rem 1.375rem;
+  border-radius: var(--radius-sm, 4px);
+  background: var(--accent);
+  color: var(--vellum-50);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s, transform 0.1s;
+}
+.wk-btn-cta:hover {
+  background: var(--accent-hover);
+}
+.wk-btn-outline {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm, 14px);
+  font-weight: 500;
+  padding: 0.625rem 1.375rem;
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--fg-1);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.wk-btn-outline:hover {
+  background: var(--vellum-100);
+  border-color: var(--fg-3);
+}
+
+/* 9. Tag Pill Classes */
+.wk-tag {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs, 12px);
+  font-weight: 500;
+  padding: 0.25rem 0.5625rem;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--vellum-200);
+  color: var(--fg-2);
+  border: none;
+  display: inline-block;
+  line-height: 1.4;
+}
+.wk-tag-accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* 10. Footer Classes */
+.wk-footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid var(--rule-soft);
+}
+@media (min-width: 768px) {
+  .wk-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* 11. Hero Layout Classes */
+.wk-hero {
+  position: relative;
+  padding: 3rem 0;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .wk-hero { padding: 5rem 0; }
+}
+.wk-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .wk-hero-inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.wk-hero-content {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .wk-hero-content {
+    width: 50%;
+    margin-left: auto;
+    padding: 0 3rem 0 0;
+  }
+}
+.wk-hero-photo {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .wk-hero-photo {
+    width: 50%;
+  }
+}
+.wk-hero-panel {
+  display: none;
+}
+@media (min-width: 768px) {
+  .wk-hero-panel {
+    display: block;
+    position: absolute;
+    inset: 0;
+    left: 0;
+    width: 50%;
+  }
+}
+.wk-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.wk-stat-card {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm, 14px);
+  color: var(--fg-3);
+  padding: 0.75rem;
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg-elevated);
+}
+
+/* 12. Icon Size Classes (D-23) */
+.wk-icon-sm { width: 16px; height: 16px; }
+.wk-icon-md { width: 20px; height: 20px; }
+.wk-icon-lg { width: 24px; height: 24px; }
+svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* 13. Section Background Variants */
+.wk-bg-sunken { background: var(--bg-sunken); }
+.wk-bg-default { background: var(--bg); }
+.wk-bg-elevated { background: var(--bg-elevated); }
+
+/* 14. Mobile Nav Toggle */
+.wk-nav-toggle {
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .wk-nav-toggle { display: none; }
+}
+.wk-btn-text-desktop { display: none; }
+@media (min-width: 768px) {
+  .wk-btn-text-desktop { display: inline; }
+}
+.wk-mobile-hidden {
+  display: none;
+}
+@media (min-width: 768px) {
+  .wk-mobile-hidden { display: block; }
+}
+
+/* 15. Print Stylesheet (D-12 through D-15) */
+@media print {
+  .wk-nav,
+  .wk-cta-section,
+  .wk-scroll-hint,
+  .wk-hero-panel { display: none !important; }
+
+  .wk-grid-skills,
+  .wk-grid-experience,
+  .wk-grid-clients {
+    grid-template-columns: 1fr !important;
+  }
+
+  .wk-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    padding: 1rem 0 !important;
+  }
+
+  .wk-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .wk-card-client {
+    page-break-inside: avoid;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .wk-hero { padding: 0 !important; }
+
+  .wk-hero-inner {
+    flex-direction: row !important;
+  }
+
+  .wk-stat-card {
+    background: #f5f5f5 !important;
+  }
+
+  .wk-btn-cta,
+  .wk-btn-outline {
+    border: 1px solid #999 !important;
+  }
+
+  a { color: var(--accent) !important; }
+}
