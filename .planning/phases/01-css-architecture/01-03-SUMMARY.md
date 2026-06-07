@@ -88,6 +88,13 @@ None — all dark mode values are fully defined with concrete hex values. No pla
 - Dark mode is ready for Plan 02 (HTML extraction) — the `@media` block is in place and will automatically apply when users have `prefers-color-scheme: dark` OS setting
 - Note: `.wk-card` (line 82 in base.css) uses `background: var(--vellum-100)` directly (raw token) rather than `var(--bg-elevated)` (semantic token). This means card backgrounds won't automatically invert in dark mode — `.wk-card` is used as a generic base class, while `.wk-card-skills` and `.wk-card-experience` use `var(--bg-elevated)` and will dark-mode correctly. This is a pre-existing design from Plan 01 that may need addressing if cards appear too light in dark mode.
 
+## Self-Check: PASSED
+
+- `src/styles/wolknitive-base.css`: FOUND
+- `@media (prefers-color-scheme: dark)`: FOUND
+- Commit `ae340f6`: FOUND (feat: add dark mode @media block)
+- Commit `854378b`: FOUND (docs: add plan 03 summary)
+
 ---
 
 *Phase: 01-css-architecture-03*
