@@ -374,3 +374,45 @@ svg.wk-icon-sm, svg.wk-icon-md, svg.wk-icon-lg {
 
   a { color: var(--accent) !important; }
 }
+
+/* ── Dark mode (prefers-color-scheme) ──────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Page & surface backgrounds (D-01, D-02) */
+    --bg: #14110B;
+    --bg-elevated: #2E261A;
+    --bg-sunken: #1C1710;
+    --bg-inverse: #FAF6EC;
+
+    /* Text colors — warm inverted (D-04) */
+    --fg-1: #FAF6EC;
+    --fg-2: #E7DCC0;
+    --fg-3: #CFBE96;
+    --fg-4: #9C8A64;
+    --fg-on-dark: #14110B;
+
+    /* Accent colors (D-03, D-07) */
+    --accent: #5F8C86;
+    --accent-hover: #34736B;
+    --accent-soft: #2E261A;
+
+    /* Secondary accent (lighter for dark contrast) */
+    --accent-2: #936F9C;
+    --accent-2-soft: #382540;
+
+    /* Highlight (lighter for dark contrast) */
+    --highlight: #E5AE6E;
+    --highlight-soft: #4A3F2A;
+
+    /* Rule/border colors (D-05) */
+    --rule-strong: #9C8A64;
+    --rule: #6B5C3E;
+    --rule-soft: #4A3F2A;
+
+    /* Shadows — lighter highlights, darker blur for dark bg */
+    --shadow-1: 0 1px 0 rgba(250,246,236,0.05), 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-2: 0 1px 0 rgba(250,246,236,0.06), 0 4px 10px -2px rgba(0,0,0,0.4);
+    --shadow-3: 0 2px 0 rgba(250,246,236,0.06), 0 12px 28px -6px rgba(0,0,0,0.5);
+    --shadow-inset: inset 0 1px 0 rgba(250,246,236,0.08), inset 0 -1px 0 rgba(0,0,0,0.3);
+  }
+}
