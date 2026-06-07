@@ -1,5 +1,84 @@
 <script>
-<!-- i18next init — populated in Plan 03 -->
+// i18next initialization (self-hosted, no react-i18next)
+document.addEventListener('DOMContentLoaded', function() {
+  // Language detector config — localStorage preference, then browser language, fallback to 'en'
+  var lng = localStorage.getItem('i18nextLng') || (navigator.language || 'en').slice(0, 2);
+  if (['en','es','de'].indexOf(lng) === -1) lng = 'en';
+
+  // Locale loader — fetches JSON files from /locales/
+  function loadLocale(locale, callback) {
+    fetch('/locales/' + locale + '.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) { callback(data); })
+      .catch(function() { callback(null); });
+  }
+
+  // Initialize i18next
+  window.i18next.init({
+    lng: lng,
+    fallbackLng: 'en',
+    interpolation: { escapeValue: false },
+    resources: {}
+  }, function(err, t) {
+    // If not English, load and apply the locale
+    if (lng !== 'en') {
+      loadLocale(lng, function(bundle) {
+        if (bundle) {
+          window.i18next.addResourceBundle(lng, 'translation', bundle);
+          window.i18next.updateMissingTranslations();
+          applyTranslations();
+        }
+      });
+    }
+  });
+
+  // Apply translations to data-i18n elements
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      var translation = window.i18next.t(key);
+      if (translation && translation !== key) {
+        el.textContent = translation;
+      }
+    });
+  }
+
+  // Language switch handler via event delegation on nav
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-i18n-switch]');
+    if (btn) {
+      var newLng = btn.getAttribute('data-i18n-switch');
+      // Update active state
+      document.querySelectorAll('[data-i18n-switch]').forEach(function(b) {
+        b.toggleAttribute('data-active', b.getAttribute('data-i18n-switch') === newLng);
+      });
+      // Switch language
+      window.i18next.changeLanguage(newLng, function() {
+        if (newLng !== 'en') {
+          loadLocale(newLng, function(bundle) {
+            if (bundle) {
+              window.i18next.addResourceBundle(newLng, 'translation', bundle);
+              window.i18next.updateMissingTranslations();
+            }
+            applyTranslations();
+          });
+        } else {
+          applyTranslations();
+        }
+      });
+      localStorage.setItem('i18nextLng', newLng);
+    }
+  });
+
+  // Initial load — apply English translations
+  loadLocale('en', function(bundle) {
+    if (bundle) {
+      window.i18next.addResourceBundle('en', 'translation', bundle);
+      window.i18next.updateMissingTranslations();
+      applyTranslations();
+    }
+  });
+});
 </script>
 </body>
 </html>
