@@ -1,7 +1,7 @@
 ---
 phase: 4
 slug: seo-i18n
-status: draft
+status: approved
 shadcn_initialized: false
 preset: none
 created: 2026-06-07
@@ -349,4 +349,4 @@ Sitemap: https://humbertobellor.github.io/dossier/sitemap.xml
 - [ ] Dimension 5 Spacing: PASS (no spacing changes)
 - [ ] Dimension 6 Registry Safety: PASS (no registries)
 
-**Approval:** pending
+**Approval:** approved (2026-06-07)

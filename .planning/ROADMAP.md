@@ -110,5 +110,5 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 | 1. CSS Architecture | 4/4 | Complete | 2026-06-07 |
 | 2. Build System | 3/3 | Complete | 2026-06-07 |
 | 3. Asset Pipeline + Cleanup | 2/2 | Complete   | 2026-06-07 |
-| 4. SEO + i18n | 0/2 | Planning | - |
+| 4. SEO + i18n | 2/2 | Planned | - |
 | 5. Deploy Configuration | 0/0 | Not started | - |
