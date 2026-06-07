@@ -160,6 +160,37 @@ for (const f of headshotFiles) {
   }
 }
 
-// 12. Log completion
+// 12. Generate sitemap.xml (per D-10, D-11, D-12)
+const baseUrl = 'https://humbertobellor.github.io/dossier';
+const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+const sitemapLocales = [
+  { code: 'en', path: '/' },
+  { code: 'es', path: '/es/' },
+  { code: 'de', path: '/de/' },
+];
+
+const sitemapEntries = sitemapLocales.map(loc => {
+  const hreflangLinks = sitemapLocales.map(hl =>
+    `    <xhtml:link rel="alternate" hreflang="${hl.code}" href="${baseUrl}${hl.path}" />`
+  ).join('\n');
+  const xdefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/" />`;
+  return `  <url>
+    <loc>${baseUrl}${loc.path}</loc>
+    <lastmod>${now}</lastmod>
+${hreflangLinks}
+${xdefault}
+  </url>`;
+}).join('\n');
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${sitemapEntries}
+</urlset>`;
+
+writeFileSync('dist/sitemap.xml', sitemap, 'utf-8');
+
+// 13. Log completion
 console.log('✓ Build complete: dist/index.html, dist/es/index.html, dist/de/index.html, dist/404.html');
 console.log('✓ Assets: fonts/, images/');
+console.log('✓ Sitemap: dist/sitemap.xml');
