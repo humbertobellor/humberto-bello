@@ -163,5 +163,14 @@
   "footer": {
     "role": "Ingeniería de Software | Arquitectura | Hyperscalers | IA Aplicada | Solopreneur",
     "location": "Estados Unidos — Ciudadano Estadounidense, Sin Necesidad de Patrocinio"
+  },
+  "seo": {
+    "title": "Humberto Bello · Arquitecto de IA y Líder de Ingeniería | IA Agéntica · RAG · Cloud",
+    "description": "Arquitecto de IA y Líder de Ingeniería, más de 20 años en IA agéntica, sistemas RAG, plataformas cloud-native. Abierto a roles de arquitecto de IA, director de ingeniería, solopreneur.",
+    "ogTitle": "Humberto Bello · Arquitecto de IA y Líder de Ingeniería",
+    "ogDescription": "Arquitecto de IA y Líder de Ingeniería, más de 20 años en IA agéntica, sistemas RAG, plataformas cloud-native.",
+    "twitterTitle": "Humberto Bello · Arquitecto de IA y Líder de Ingeniería",
+    "twitterDescription": "Arquitecto de IA y Líder de Ingeniería, más de 20 años en IA agéntica, sistemas RAG, y plataformas cloud-native.",
+    "ogLocale": "es_ES"
   }
 }

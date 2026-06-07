@@ -163,5 +163,14 @@
   "footer": {
     "role": "Software Engineering | Architecture | Hyperscalers | Applied AI | Solopreneur",
     "location": "United States — US Citizen, No Sponsorship Required"
+  },
+  "seo": {
+    "title": "Humberto Bello · AI Architect & Engineering Leader | Agentic AI · RAG · Cloud",
+    "description": "AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms. Open to AI architect, engineering director, solopreneur roles.",
+    "ogTitle": "Humberto Bello · AI Architect & Engineering Leader",
+    "ogDescription": "AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, cloud-native platforms.",
+    "twitterTitle": "Humberto Bello · AI Architect & Engineering Leader",
+    "twitterDescription": "AI Architect & Engineering Leader, 20+ years in agentic AI, RAG systems, and cloud-native platforms.",
+    "ogLocale": "en_US"
   }
 }

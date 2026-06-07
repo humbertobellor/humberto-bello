@@ -163,5 +163,14 @@
   "footer": {
     "role": "Software Engineering | Architektur | Hyperscaler | Angewandte KI | Solopreneur",
     "location": "Vereinigte Staaten — US-Bürger, Kein Sponsoring erforderlich"
+  },
+  "seo": {
+    "title": "Humberto Bello · KI-Architekt & Engineering Leader | Agentische KI · RAG · Cloud",
+    "description": "KI-Architekt & Engineering Leader, 20+ Jahre Erfahrung in agentischer KI, RAG-Systemen, Cloud-native Plattformen. Offen für KI-Architekt, Engineering Director, Solopreneur-Rollen.",
+    "ogTitle": "Humberto Bello · KI-Architekt & Engineering Leader",
+    "ogDescription": "KI-Architekt & Engineering Leader, 20+ Jahre Erfahrung in agentischer KI, RAG-Systemen, Cloud-native Plattformen.",
+    "twitterTitle": "Humberto Bello · KI-Architekt & Engineering Leader",
+    "twitterDescription": "KI-Architekt & Engineering Leader, 20+ Jahre Erfahrung in agentischer KI, RAG-Systemen, und Cloud-native Plattformen.",
+    "ogLocale": "de_DE"
   }
 }
