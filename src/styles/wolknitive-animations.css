@@ -53,3 +53,30 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ── Accessibility: disable animations when user prefers reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .wk-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+  }
+  .wk-anim-fade-left,
+  .wk-anim-fade-right,
+  .wk-anim-fade-scale,
+  .wk-anim-fade-up,
+  .wk-anim-fade-left-sm,
+  .wk-anim-fade-up-sm,
+  .wk-anim-bounce-y {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
