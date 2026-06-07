@@ -67,7 +67,7 @@ try {
   process.exit(1);
 }
 
-// 8. Copy i18next vendor JS
+// 10. Copy i18next vendor JS
 const vendorScripts = [
   ['node_modules/i18next/dist/umd/i18next.min.js', 'dist/locales/i18next.min.js'],
   ['node_modules/i18next-browser-languagedetector/dist/umd/i18nextBrowserLanguageDetector.min.js', 'dist/locales/i18nextBrowserLanguageDetector.min.js'],
@@ -80,7 +80,7 @@ for (const [src, dest] of vendorScripts) {
   }
 }
 
-// 9. Copy locale JSON files
+// 11. Copy locale JSON files
 for (const locale of ['en', 'es', 'de']) {
   const src = `src/i18n/locales/${locale}.json`;
   try {
@@ -90,6 +90,32 @@ for (const locale of ['en', 'es', 'de']) {
   }
 }
 
-// 10. Log completion
+// 8. Copy font files
+const FONTS_SRC = 'public/fonts';
+if (existsSync(FONTS_SRC)) {
+  const fontFiles = ['Bogart-Italic-trial.woff2', 'Bogart-Medium-Italic-trial.woff2', 'Bogart-Medium-trial.woff2', 'Bogart-Regular-trial.woff2', 'Bogart-Semibold-trial.woff2', 'InterTight-400-latin.woff2', 'InterTight-500-latin.woff2', 'InterTight-600-latin.woff2', 'JetBrainsMono-400-latin.woff2', 'JetBrainsMono-500-latin.woff2', 'newsreader-latin-400-italic.woff2', 'newsreader-latin-400-normal.woff2'];
+  for (const f of fontFiles) {
+    const src = `${FONTS_SRC}/${f}`;
+    try {
+      if (existsSync(src)) cpSync(src, `dist/fonts/${f}`);
+    } catch (err) {
+      console.warn('⚠ Skipping font (not found):', f);
+    }
+  }
+}
+
+// 9. Copy headshot images
+const IMG_SRC = resolve(import.meta.dirname, '../dossier-main/attached_assets');
+const headshotFiles = ['headshot-corp_1776959044728.avif', 'headshot-corp_1776959044728.webp', 'headshot-corp_1776959044728@1x.avif', 'headshot-corp_1776959044728@1x.webp'];
+for (const f of headshotFiles) {
+  const src = `${IMG_SRC}/${f}`;
+  try {
+    if (existsSync(src)) cpSync(src, `dist/images/${f}`);
+  } catch (err) {
+    console.warn('⚠ Skipping headshot (not found):', f);
+  }
+}
+
+// 12. Log completion
 console.log('✓ Build complete: dist/index.html, dist/404.html');
-console.log('✓ Assets: locales/, fonts/ (empty), images/ (empty)');
+console.log('✓ Assets: locales/, fonts/, images/');
