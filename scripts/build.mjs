@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-// 1. Read BASE_PATH
-const basePath = process.env.BASE_PATH || '';
+// 1. Read BASE_PATH (default to /dossier/ for GitHub Pages deployment)
+const basePath = process.env.BASE_PATH || '/dossier/';
 
 // 2. Scaffold output directories
 const dirs = ['dist', 'dist/fonts', 'dist/images'];
@@ -34,8 +34,24 @@ const styleBlocks = cssFiles.map(f => {
 // 5. Rewrite asset paths with BASE_PATH prefix
 function rewritePaths(html) {
   if (!basePath) return html;
+
+  // Rewrite href and src attributes for fonts, images, and other assets
   html = html.replace(/(href|src)=["']\/fonts\//g, `$1="${basePath}fonts/`);
-  html = html.replace(/(src|srcset)=["']\/images\//g, `$1="${basePath}images/`);
+  html = html.replace(/(href|src)=["']\/images\//g, `$1="${basePath}images/`);
+  html = html.replace(/(href|src)=["']\/favicon\.svg/g, `$1="${basePath}favicon.svg`);
+  html = html.replace(/(href|src)=["']\/Humberto_Bello_Resume\.pdf/g, `$1="${basePath}Humberto_Bello_Resume.pdf`);
+  html = html.replace(/(href|src)=["']\/(?!dossier)/g, `$1="${basePath}`);
+
+  // Rewrite srcset attributes — replace all /images/ paths in srcset values
+  html = html.replace(/srcset=["']([^"']+)["']/g, (_match, srcset) => {
+    const rewritten = srcset.replace(/\/images\//g, `${basePath}images/`);
+    return `srcset="${rewritten}"`;
+  });
+
+  // Rewrite CSS url() paths in inline <style> blocks
+  html = html.replace(/url\(["']\/fonts\//g, `url('${basePath}fonts/`);
+  html = html.replace(/url\(["']\/images\//g, `url('${basePath}images/`);
+
   return html;
 }
 
@@ -49,6 +65,45 @@ function injectStyles(html) {
     html = html.replace(re, styleBlocks[i]);
   }
   return html;
+}
+
+// Validate all asset paths in output HTML use /dossier/ prefix or are relative
+function validatePaths(html) {
+  const issues = [];
+
+  // Check src and href attributes
+  const srcMatches = html.matchAll(/(?:src|href)=["']([^"']+)["']/g);
+  for (const [, path] of srcMatches) {
+    // Skip inline data: URIs, http/https URLs, anchors, and data: URIs
+    if (path.startsWith('data:') || path.startsWith('http://') || path.startsWith('https://') || path.startsWith('#')) continue;
+    // Skip non-asset paths (mailto:, tel:, javascript:)
+    if (/^(mailto:|tel:|javascript:)/.test(path)) continue;
+    // Must start with /dossier/ or be a relative path (no leading /)
+    if (path.startsWith('/') && !path.startsWith('/dossier/')) {
+      issues.push(`Absolute path without /dossier/ prefix: ${path}`);
+    }
+  }
+
+  // Check srcset attributes
+  const srcsetMatches = html.matchAll(/srcset=["']([^"']+)["']/g);
+  for (const [, srcset] of srcsetMatches) {
+    const entries = srcset.split(',').map(s => s.trim().split(/\s+/)[0]);
+    for (const entry of entries) {
+      if (entry.startsWith('/') && !entry.startsWith('/dossier/')) {
+        issues.push(`Srcset path without /dossier/ prefix: ${entry}`);
+      }
+    }
+  }
+
+  // Check CSS url() in inline styles (not in external CSS files — those are already inlined)
+  const urlMatches = html.matchAll(/url\(["']?([^"')]+)["']?\)/g);
+  for (const [, path] of urlMatches) {
+    if (path.startsWith('/') && !path.startsWith('/dossier/')) {
+      issues.push(`CSS url() path without /dossier/ prefix: ${path}`);
+    }
+  }
+
+  return issues;
 }
 
 // Load locale files for build-time content replacement
@@ -233,3 +288,44 @@ for (const f of headshotFiles) {
 console.log('✓ Build complete: dist/index.html, dist/es/index.html, dist/de/index.html, dist/404.html');
 console.log('✓ Assets: fonts/, images/');
 console.log('✓ Sitemap: dist/sitemap.xml');
+
+// --- Deploy configuration ---
+// 14. Create .nojekyll file (INF-02)
+writeFileSync('dist/.nojekyll', '', 'utf-8');
+console.log('✓ Created dist/.nojekyll');
+
+// 15. Validate all asset paths in built HTML
+const validationErrors = [];
+for (const locale of locales) {
+  const htmlPath = locale === 'en' ? 'dist/index.html' : `dist/${locale}/index.html`;
+  if (existsSync(htmlPath)) {
+    const html = readFileSync(htmlPath, 'utf-8');
+    const errors = validatePaths(html);
+    for (const err of errors) {
+      validationErrors.push(`[${locale}] ${err}`);
+    }
+  }
+}
+// Also validate 404.html
+if (existsSync('dist/404.html')) {
+  const html404 = readFileSync('dist/404.html', 'utf-8');
+  const errors = validatePaths(html404);
+  for (const err of errors) {
+    validationErrors.push(`[404] ${err}`);
+  }
+}
+
+if (validationErrors.length > 0) {
+  console.error(`✗ Path validation failed — ${validationErrors.length} issue(s):`);
+  for (const err of validationErrors) {
+    console.error(`  ${err}`);
+  }
+  process.exit(1);
+} else {
+  const totalPaths = locales.length + 1; // en + es + de + 404
+  console.log(`✓ Path validation passed — ${totalPaths} HTML files scanned`);
+}
+
+// 16. Copy dist/ to docs/ for GitHub Pages (D-01, D-02)
+cpSync('dist', 'docs', { recursive: true });
+console.log('✓ Copied dist/ to docs/ for GitHub Pages deployment');
