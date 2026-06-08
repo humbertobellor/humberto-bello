@@ -40,7 +40,7 @@ function rewritePaths(html) {
   html = html.replace(/(href|src)=["']\/images\//g, `$1="${basePath}images/`);
   html = html.replace(/(href|src)=["']\/favicon\.svg/g, `$1="${basePath}favicon.svg`);
   html = html.replace(/(href|src)=["']\/Humberto_Bello_Resume\.pdf/g, `$1="${basePath}Humberto_Bello_Resume.pdf`);
-  html = html.replace(/(href|src)=["']\/(?!dossier)/g, `$1="${basePath}`);
+  html = html.replace(/(href|src)=["']\/(?!humberto-bello)/g, `$1="${basePath}`);
 
   // Rewrite srcset attributes — replace all /images/ paths in srcset values
   html = html.replace(/srcset=["']([^"']+)["']/g, (_match, srcset) => {
