@@ -101,7 +101,8 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   3. Site is live at `https://humbertobellor.github.io/dossier/` after deploy
   4. All asset paths (fonts, images, preloads) resolve on the live site — no 404s in browser console
   5. All 3 locale pages render without visual regressions compared to the original Replit-hosted site
-**Plans**: TBD
+**Plans**: 1 plan (execute)
+- [ ] `05-01` — Build script path validation, .nojekyll, docs/ copy, deploy checkpoint
 
 ## Progress
 
@@ -111,4 +112,4 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 | 2. Build System | 3/3 | Complete | 2026-06-07 |
 | 3. Asset Pipeline + Cleanup | 2/2 | Complete   | 2026-06-07 |
 | 4. SEO + i18n | 3/3 | Complete   | 2026-06-08 |
-| 5. Deploy Configuration | 0/0 | Not started | - |
+| 5. Deploy Configuration | 0/1 | Planned | - |
