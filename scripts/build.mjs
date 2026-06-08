@@ -58,25 +58,59 @@ for (const loc of locales) {
   localeData[loc] = JSON.parse(readFileSync(`src/i18n/locales/${loc}.json`, 'utf-8'));
 }
 
+// Resolve a dot-notation key (with optional array indexing) from locale data
+function resolveKey(data, key) {
+  const parts = key.split('.');
+  let value = data;
+  for (const part of parts) {
+    const arrMatch = part.match(/^(\w+)\[(\d+)\]$/);
+    if (arrMatch) {
+      value = value[arrMatch[1]];
+      if (value) value = value[parseInt(arrMatch[2])];
+    } else {
+      value = value ? value[part] : undefined;
+    }
+  }
+  return value;
+}
+
 // Replace data-i18n attributes with locale text content
 function replaceI18n(html, data, prefix = '') {
-  return html.replace(/data-i18n="([^"]+)"/g, (_, key) => {
-    const parts = key.split('.');
-    let value = data;
-    for (const part of parts) {
-      const arrMatch = part.match(/^(\w+)\[(\d+)\]$/);
-      if (arrMatch) {
-        value = value[arrMatch[1]];
-        if (value) value = value[parseInt(arrMatch[2])];
-      } else {
-        value = value ? value[part] : undefined;
+  // Step 1: Handle <meta> tags — replace content attribute value using data-i18n key
+  // First pass: content before data-i18n
+  html = html.replace(
+    /(<meta[^>]*?)\s+content="([^"]*)"[^>]*?data-i18n="([^"]+)"[^>]*?(\/>)/g,
+    (_, pre, _oldContent, key, close) => {
+      const value = resolveKey(data, key);
+      if (typeof value === 'string') {
+        return `${pre} content="${value}"${close}`;
       }
+      return `${pre} content="${_oldContent}"${close}`;
     }
-    if (typeof value === 'string') {
-      return `>${value}<`;
+  );
+  // Second pass: data-i18n before content
+  html = html.replace(
+    /(<meta[^>]*?)data-i18n="([^"]+)"[^>]*?content="([^"]*)"[^>]*?(\/>)/g,
+    (_, pre, key, _oldContent, close) => {
+      const value = resolveKey(data, key);
+      if (typeof value === 'string') {
+        return `${pre} content="${value}"${close}`;
+      }
+      return `${pre} content="${_oldContent}"${close}`;
     }
-    return `>${key}<`;
-  });
+  );
+
+  // Step 2: Handle <title> and other text elements — replace data-i18n attribute AND original text content
+  html = html.replace(
+    /(<[^>]*data-i18n="([^"]+)"[^>]*>)([^<]*)(<\/[^>]+>)/g,
+    (_, openTag, key, _originalText, closeTag) => {
+      const value = resolveKey(data, key);
+      if (typeof value === 'string') return `${openTag}${value}${closeTag}`;
+      return `${openTag}${_originalText}${closeTag}`;
+    }
+  );
+
+  return html;
 }
 
 // Set <html lang> attribute per locale
@@ -129,6 +163,41 @@ try {
   notFoundHtml = injectStyles(notFoundHtml);
   notFoundHtml = rewritePaths(notFoundHtml);
   writeFileSync('dist/404.html', notFoundHtml, 'utf-8');
+
+  // Copy opengraph.jpg for social sharing
+  if (existsSync('public/opengraph.jpg')) {
+    cpSync('public/opengraph.jpg', 'dist/images/opengraph.jpg');
+  }
+
+  // 12. Generate sitemap.xml (per D-10, D-11, D-12)
+  const baseUrl = 'https://humbertobellor.github.io/dossier';
+  const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+  const sitemapLocales = [
+    { code: 'en', path: '/' },
+    { code: 'es', path: '/es/' },
+    { code: 'de', path: '/de/' },
+  ];
+
+  const sitemapEntries = sitemapLocales.map(loc => {
+    const hreflangLinks = sitemapLocales.map(hl =>
+      `    <xhtml:link rel="alternate" hreflang="${hl.code}" href="${baseUrl}${hl.path}" />`
+    ).join('\n');
+    const xdefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/" />`;
+    return `  <url>
+    <loc>${baseUrl}${loc.path}</loc>
+    <lastmod>${now}</lastmod>
+${hreflangLinks}
+${xdefault}
+  </url>`;
+  }).join('\n');
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${sitemapEntries}
+</urlset>`;
+
+  writeFileSync('dist/sitemap.xml', sitemap, 'utf-8');
 } catch (err) {
   console.error('✗ Build failed:', err.message);
   process.exit(1);
@@ -159,36 +228,6 @@ for (const f of headshotFiles) {
     console.warn('⚠ Skipping headshot (not found):', f);
   }
 }
-
-// 12. Generate sitemap.xml (per D-10, D-11, D-12)
-const baseUrl = 'https://humbertobellor.github.io/dossier';
-const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-const sitemapLocales = [
-  { code: 'en', path: '/' },
-  { code: 'es', path: '/es/' },
-  { code: 'de', path: '/de/' },
-];
-
-const sitemapEntries = sitemapLocales.map(loc => {
-  const hreflangLinks = sitemapLocales.map(hl =>
-    `    <xhtml:link rel="alternate" hreflang="${hl.code}" href="${baseUrl}${hl.path}" />`
-  ).join('\n');
-  const xdefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/" />`;
-  return `  <url>
-    <loc>${baseUrl}${loc.path}</loc>
-    <lastmod>${now}</lastmod>
-${hreflangLinks}
-${xdefault}
-  </url>`;
-}).join('\n');
-
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${sitemapEntries}
-</urlset>`;
-
-writeFileSync('dist/sitemap.xml', sitemap, 'utf-8');
 
 // 13. Log completion
 console.log('✓ Build complete: dist/index.html, dist/es/index.html, dist/de/index.html, dist/404.html');
