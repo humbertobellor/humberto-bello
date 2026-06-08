@@ -310,6 +310,16 @@ svg.wk-icon-sm, svg.wk-icon-md {
   .wk-mobile-hidden { display: none; }
 }
 
+/* Fix for mobile headshot showing on desktop - increase specificity */
+.wk-mobile-headshot.wk-mobile-hidden {
+  display: block;
+}
+@media (min-width: 768px) {
+  .wk-mobile-headshot.wk-mobile-hidden { 
+    display: none !important;
+  }
+}
+
 /* 15. Nav Extensions */
 .wk-nav-logo {
   font-family: var(--font-display);
