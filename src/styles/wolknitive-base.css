@@ -304,10 +304,10 @@ svg.wk-icon-sm, svg.wk-icon-md {
   .wk-btn-text-desktop { display: inline; }
 }
 .wk-mobile-hidden {
-  display: none;
+  display: block;
 }
 @media (min-width: 768px) {
-  .wk-mobile-hidden { display: block; }
+  .wk-mobile-hidden { display: none; }
 }
 
 /* 15. Nav Extensions */
