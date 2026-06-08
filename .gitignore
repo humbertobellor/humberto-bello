@@ -1,0 +1,5 @@
+# Build output
+dist/
+
+# Build output (deploy artifact)
+docs/
