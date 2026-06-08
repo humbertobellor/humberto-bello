@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 // 1. Read BASE_PATH (default to /dossier/ for GitHub Pages deployment)
-const basePath = process.env.BASE_PATH || '/dossier/';
+const basePath = process.env.BASE_PATH || '/humberto-bello/';
 
 // 2. Scaffold output directories
 const dirs = ['dist', 'dist/fonts', 'dist/images'];
