@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-// 1. Read BASE_PATH (default to /dossier/ for GitHub Pages deployment)
+// 1. Read BASE_PATH (default to /humberto-bello/ for GitHub Pages deployment)
 const basePath = process.env.BASE_PATH || '/humberto-bello/';
 
 // 2. Scaffold output directories
@@ -67,7 +67,7 @@ function injectStyles(html) {
   return html;
 }
 
-// Validate all asset paths in output HTML use /dossier/ prefix or are relative
+// Validate all asset paths in output HTML use /humberto-bello/ prefix or are relative
 function validatePaths(html) {
   const issues = [];
 
@@ -78,9 +78,9 @@ function validatePaths(html) {
     if (path.startsWith('data:') || path.startsWith('http://') || path.startsWith('https://') || path.startsWith('#')) continue;
     // Skip non-asset paths (mailto:, tel:, javascript:)
     if (/^(mailto:|tel:|javascript:)/.test(path)) continue;
-    // Must start with /dossier/ or be a relative path (no leading /)
-    if (path.startsWith('/') && !path.startsWith('/dossier/')) {
-      issues.push(`Absolute path without /dossier/ prefix: ${path}`);
+    // Must start with /humberto-bello/ or be a relative path (no leading /)
+    if (path.startsWith('/') && !path.startsWith('/humberto-bello/')) {
+      issues.push(`Absolute path without /humberto-bello/ prefix: ${path}`);
     }
   }
 
@@ -89,8 +89,8 @@ function validatePaths(html) {
   for (const [, srcset] of srcsetMatches) {
     const entries = srcset.split(',').map(s => s.trim().split(/\s+/)[0]);
     for (const entry of entries) {
-      if (entry.startsWith('/') && !entry.startsWith('/dossier/')) {
-        issues.push(`Srcset path without /dossier/ prefix: ${entry}`);
+      if (entry.startsWith('/') && !entry.startsWith('/humberto-bello/')) {
+        issues.push(`Srcset path without /humberto-bello/ prefix: ${entry}`);
       }
     }
   }
@@ -98,8 +98,8 @@ function validatePaths(html) {
   // Check CSS url() in inline styles (not in external CSS files — those are already inlined)
   const urlMatches = html.matchAll(/url\(["']?([^"')]+)["']?\)/g);
   for (const [, path] of urlMatches) {
-    if (path.startsWith('/') && !path.startsWith('/dossier/')) {
-      issues.push(`CSS url() path without /dossier/ prefix: ${path}`);
+    if (path.startsWith('/') && !path.startsWith('/humberto-bello/')) {
+      issues.push(`CSS url() path without /humberto-bello/ prefix: ${path}`);
     }
   }
 
@@ -176,9 +176,9 @@ function setHtmlLang(html, lang) {
 // Set active locale on language switcher links
 function setActiveLocale(html, locale) {
   // Remove data-active from all language switcher links
-  html = html.replace(/(<a href="\/dossier\/[^"]*" class="wk-nav-link")( data-active="true")?/g, '$1');
+  html = html.replace(/(<a href="\/humberto-bello\/[^"]*" class="wk-nav-link")( data-active="true")?/g, '$1');
   // Set data-active on the correct locale link
-  const localePath = locale === 'en' ? '/dossier/' : `/dossier/${locale}/`;
+  const localePath = locale === 'en' ? '/humberto-bello/' : `/humberto-bello/${locale}/`;
   html = html.replace(
     new RegExp(`(href="${localePath}" class="wk-nav-link")`),
     '$1 data-active="true"'
@@ -225,7 +225,7 @@ try {
   }
 
   // 12. Generate sitemap.xml (per D-10, D-11, D-12)
-  const baseUrl = 'https://humbertobellor.github.io/dossier';
+  const baseUrl = 'https://humbertobellor.github.io/humberto-bello';
   const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   const sitemapLocales = [
     { code: 'en', path: '/' },
@@ -273,7 +273,7 @@ if (existsSync(FONTS_SRC)) {
 }
 
 // 9. Copy headshot images
-const IMG_SRC = resolve(import.meta.dirname, '../dossier-main/attached_assets');
+const IMG_SRC = resolve(import.meta.dirname, '../humberto-bello-main/attached_assets');
 const headshotFiles = ['headshot-corp_1776959044728.avif', 'headshot-corp_1776959044728.webp', 'headshot-corp_1776959044728@1x.avif', 'headshot-corp_1776959044728@1x.webp'];
 for (const f of headshotFiles) {
   const src = `${IMG_SRC}/${f}`;
