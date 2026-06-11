@@ -773,7 +773,7 @@ svg.wk-icon-sm, svg.wk-icon-md {
 
     /* Text colors — warm inverted (D-04) */
     --fg-1: #FAF6EC;
-    --fg-2: #E7DCC0;
+    --fg-2: #433f36;  /*#E7DCC0; */
     --fg-3: #CFBE96;
     --fg-4: #9C8A64;
     --fg-on-dark: #14110B;
