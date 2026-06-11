@@ -41,7 +41,7 @@ Mistakes that cause rewrites or major issues.
 
 ### Pitfall 3: Path Inconsistency with GitHub Pages Subdirectory
 
-**What goes wrong:** The site deploys to `humbertobellor.github.io/dossier/` (a subdirectory, not a root domain). All asset paths must include the `/dossier/` prefix or use relative paths. If paths are hardcoded as `/fonts/...` they break on GitHub Pages because the browser looks for `humbertobellor.github.io/fonts/` instead of `humbertobellor.github.io/dossier/fonts/`.
+**What goes wrong:** The site deploys to `bertjbello.com/` (a subdirectory, not a root domain). All asset paths must include the `/dossier/` prefix or use relative paths. If paths are hardcoded as `/fonts/...` they break on GitHub Pages because the browser looks for `bertjbello.com/fonts/` instead of `bertjbello.com/fonts/`.
 
 **Why it happens:** During local testing, files are served from the filesystem (no prefix needed). The developer forgets to add the prefix before deploy.
 
@@ -80,7 +80,7 @@ function assetPath(relative) {
 fs.writeFileSync(path.join(DIST_DIR, ".nojekyll"), "");
 ```
 
-**Detection:** After deploy, `https://humbertobellor.github.io/dossier/es/` returns 404.
+**Detection:** After deploy, `https://bertjbello.com/es/` returns 404.
 
 ### Pitfall 5: Inline Style Regex Errors During CSS Extraction
 
@@ -106,7 +106,7 @@ fs.writeFileSync(path.join(DIST_DIR, ".nojekyll"), "");
 **Prevention:** The build script generates all hreflang links in a single block from a locale list — every locale gets identical link sets. This is mechanically correct by construction.
 
 ### Pitfall 2: Forgetting to Update the Canonical URL
-**What goes wrong:** The current `index.html` has `<link rel="canonical" href="https://humbertobello.replit.app/">`. If this isn't changed to `https://humbertobellor.github.io/dossier/`, search engines continue to prefer the old Replit URL.
+**What goes wrong:** The current `index.html` has `<link rel="canonical" href="https://humbertobello.replit.app/">`. If this isn't changed to `https://bertjbello.com/`, search engines continue to prefer the old Replit URL.
 **Prevention:** The canonical URL becomes a build-time constant alongside `BASE_PATH`.
 
 ### Pitfall 3: Language Switcher Without Current-Locale Feedback

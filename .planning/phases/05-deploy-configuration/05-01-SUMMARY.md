@@ -109,7 +109,7 @@ None - no external service configuration required.
 ## Next Phase Readiness
 - Build script produces deployable docs/ directory
 - Ready for GitHub Pages deployment: push to main, set Pages source to docs/
-- Checkpoint task 3 requires live site verification at humbertobellor.github.io/dossier/
+- Checkpoint task 3 requires live site verification at bertjbello.com/
 
 ---
 *Phase: 05-deploy-configuration*

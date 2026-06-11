@@ -53,7 +53,7 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │              GitHub Pages (static file server)                    │
 │                                                                   │
-│  URL: humbertobellor.github.io/dossier/                          │
+│  URL: bertjbello.com/                          │
 │  Serving: dist/ as root                                          │
 │  404 fallback: 404.html                                          │
 │  No server, no Express, no CSP headers (GH Pages handles         │
@@ -80,10 +80,10 @@ The current approach uses i18next (~33KB in bundled vendor-i18n chunk) with clie
 
 ```html
 <!-- index.html (English) — <head> includes: -->
-<link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-<link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-<link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-<link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+<link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+<link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+<link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+<link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
 ```
 
 - Language switcher in nav becomes locale-specific links: `href="/dossier/es/"`, `href="/dossier/de/"`
@@ -409,16 +409,16 @@ Each locale's HTML gets language-specific meta:
   <meta property="og:title" content="...Spanish..." />
   <meta property="og:locale" content="es_ES" />
   <!-- hreflang cluster -->
-  <link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-  <link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-  <link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-  <link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+  <link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+  <link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+  <link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+  <link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
 </head>
 ```
 
 ### Canonical URL
 
-Update from current `https://humbertobello.replit.app/` to `https://humbertobellor.github.io/dossier/`.
+Update from current `https://humbertobello.replit.app/` to `https://bertjbello.com/`.
 
 ### Sitemap
 
@@ -428,11 +428,11 @@ Regenerate with all three locale URLs and hreflang annotations:
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://humbertobellor.github.io/dossier/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+    <loc>https://bertjbello.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -474,7 +474,7 @@ Or use GitHub Actions for automated deploy on push to `main`.
 
 ### BASE_PATH Consideration
 
-The site lives at `/dossier/` on `humbertobellor.github.io`. All paths must be relative:
+The site lives at `/dossier/` on `bertjbello.com`. All paths must be relative:
 - `/dossier/` → root URL
 - `/dossier/fonts/InterTight-400-latin.woff2` → font URL
 - `/dossier/es/` → Spanish locale

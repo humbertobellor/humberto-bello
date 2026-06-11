@@ -244,16 +244,16 @@ Each locale JSON file gains a `seo` block:
 
 ### URLs Updated
 
-All URLs in HTML output changed from `humbertobello.replit.app` to `humbertobellor.github.io/dossier/`:
+All URLs in HTML output changed from `humbertobello.replit.app` to `bertjbello.com/`:
 
-- `<link rel="canonical">` → `https://humbertobellor.github.io/dossier/` (locale-specific: `/dossier/es/`, `/dossier/de/`)
+- `<link rel="canonical">` → `https://bertjbello.com/` (locale-specific: `/dossier/es/`, `/dossier/de/`)
 - `og:url` → same pattern
-- JSON-LD `url` → `https://humbertobellor.github.io/dossier/`
-- `og:image` → `https://humbertobellor.github.io/dossier/images/opengraph.jpg` (or kept as-is if image is already at root)
+- JSON-LD `url` → `https://bertjbello.com/`
+- `og:image` → `https://bertjbello.com/images/opengraph.jpg` (or kept as-is if image is already at root)
 
 ### JSON-LD Updates
 
-- Person schema `url` updated to `https://humbertobellor.github.io/dossier/`
+- Person schema `url` updated to `https://bertjbello.com/`
 - New WebSite schema block added alongside Person
 - `sameAs` array updated: LinkedIn stays same, GitHub URL updated
 
@@ -274,28 +274,28 @@ All URLs in HTML output changed from `humbertobello.replit.app` to `humbertobell
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://humbertobellor.github.io/dossier/</loc>
+    <loc>https://bertjbello.com/</loc>
     <lastmod>{build-date}</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
   </url>
   <url>
-    <loc>https://humbertobellor.github.io/dossier/es/</loc>
+    <loc>https://bertjbello.com/es/</loc>
     <lastmod>{build-date}</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
   </url>
   <url>
-    <loc>https://humbertobellor.github.io/dossier/de/</loc>
+    <loc>https://bertjbello.com/de/</loc>
     <lastmod>{build-date}</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://humbertobellor.github.io/dossier/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://humbertobellor.github.io/dossier/es/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://humbertobellor.github.io/dossier/de/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://humbertobellor.github.io/dossier/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://bertjbello.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bertjbello.com/es/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bertjbello.com/de/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bertjbello.com/" />
   </url>
 </urlset>
 ```
@@ -306,7 +306,7 @@ All URLs in HTML output changed from `humbertobello.replit.app` to `humbertobell
 User-agent: *
 Allow: /
 
-Sitemap: https://humbertobellor.github.io/dossier/sitemap.xml
+Sitemap: https://bertjbello.com/sitemap.xml
 ```
 
 ---

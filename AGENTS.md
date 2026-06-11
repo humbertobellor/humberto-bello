@@ -57,7 +57,7 @@ A static HTML+CSS version of Humberto Bello's professional dossier site, hosting
 ### Constraints
 
 - **Hosting**: Must work as 100% static files — no server, no build-time server
-- **Deploy target**: GitHub Pages (`humbertobellor.github.io/dossier`)
+- **Deploy target**: GitHub Pages (`bertjbello.com`)
 - **Timeline**: This session — plan through execution complete
 - **Output**: Single `index.html` (plus `404.html` for SPA routing)
 - **No new dependencies**: Use Node built-ins only for build script

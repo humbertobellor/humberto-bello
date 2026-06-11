@@ -53,7 +53,7 @@ completed: 2026-06-07
 
 ## Accomplishments
 - Added seo.* keys (title, description, ogTitle, ogDescription, twitterTitle, twitterDescription, ogLocale) to all 3 locale JSON files with localized content
-- Updated robots.txt to point sitemap URL to humbertobellor.github.io/dossier/sitemap.xml
+- Updated robots.txt to point sitemap URL to bertjbello.com/sitemap.xml
 - Extended build script to generate dist/sitemap.xml with hreflang annotations for en/es/de + x-default
 
 ## Task Commits
@@ -67,7 +67,7 @@ Each task was committed atomically:
 - `src/i18n/locales/en.json` - Added seo block with English meta content and ogLocale: en_US
 - `src/i18n/locales/es.json` - Added seo block with Spanish meta content and ogLocale: es_ES
 - `src/i18n/locales/de.json` - Added seo block with German meta content and ogLocale: de_DE
-- `public/robots.txt` - Updated sitemap URL to humbertobellor.github.io/dossier/sitemap.xml
+- `public/robots.txt` - Updated sitemap URL to bertjbello.com/sitemap.xml
 - `scripts/build.mjs` - Added sitemap generation with hreflang annotations for 3 locales
 
 ## Decisions Made

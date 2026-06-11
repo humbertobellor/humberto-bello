@@ -65,7 +65,7 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   2. Headshot images (AVIF/WebP with srcset variants) and OpenGraph image are in `dist/images/` with correct relative paths
   3. `src/components/ui/` directory (55 shadcn/ui files) and `@workspace/api-client-react` dep are removed — no imports reference them
   4. CHANGELOG component is removed — no API client dependency exists in build output
-  5. LinkedIn profile link resolves to `https://www.linkedin.com/in/humberto-bello/` — no placeholder URL
+  5. LinkedIn profile link resolves to `https://www.linkedin.com/in/` — no placeholder URL
   6. `package.json` lists only necessary runtime and dev dependencies — no Tailwind, shadcn, framer-motion, lucide-react, etc.
 **Plans**: 2 plans (all execute)
 **Wave 1** *(parallel)*:
@@ -82,7 +82,7 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
   3. Language choice persists across page visits (localStorage)
   4. Open Graph, Twitter Card, and meta description tags are present and correct for all 3 locales
   5. JSON-LD structured data (Person + WebSite schema) is present in the output HTML
-  6. Canonical URL is set to `https://humbertobellor.github.io/dossier/`
+  6. Canonical URL is set to `https://bertjbello.com/`
   7. `sitemap.xml` includes all 3 locale variants with correct hreflang annotations and x-default
   8. `robots.txt` points to the new sitemap URL and allows crawling
 **Plans**: 2 plans (all execute)
@@ -98,7 +98,7 @@ Refactor the existing React 19/Vite/TypeScript SPA into a zero-dependency static
 **Success Criteria** (what must be TRUE):
   1. `dist/` directory structure is deployable to GitHub Pages subdirectory — all asset paths use `/dossier/` prefix, no absolute `/` paths
   2. `.nojekyll` file is present at the deploy root
-  3. Site is live at `https://humbertobellor.github.io/dossier/` after deploy
+  3. Site is live at `https://bertjbello.com/` after deploy
   4. All asset paths (fonts, images, preloads) resolve on the live site — no 404s in browser console
   5. All 3 locale pages render without visual regressions compared to the original Replit-hosted site
 **Plans**: 1 plan (execute)

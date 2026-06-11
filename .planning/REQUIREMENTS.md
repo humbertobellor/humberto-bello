@@ -47,8 +47,8 @@
 
 - [ ] **SEO-01**: All existing meta tags, Open Graph, Twitter Cards preserved
 - [ ] **SEO-02**: JSON-LD structured data enhanced (Person + WebSite schema)
-- [ ] **SEO-03**: Canonical URL set to `https://humbertobellor.github.io/dossier/`
-- [ ] **SEO-04**: LinkedIn placeholder URL replaced with real profile: `https://www.linkedin.com/in/humberto-bello/`
+- [ ] **SEO-03**: Canonical URL set to `https://bertjbello.com/`
+- [ ] **SEO-04**: LinkedIn placeholder URL replaced with real profile: `https://www.linkedin.com/in/`
 - [ ] **SEO-05**: Sitemap regenerated for new URL
 - [ ] **SEO-06**: `robots.txt` updated for new domain
 
@@ -57,7 +57,7 @@
 - [ ] **INF-01**: `404.html` generated for GitHub Pages SPA fallback
 - [ ] **INF-02**: `.nojekyll` file included in output
 - [ ] **INF-03**: CSP retained via `<meta>` tag (GitHub Pages cannot set HTTP headers)
-- [ ] **INF-04**: Build output is deployable to `humbertobellor.github.io/dossier/`
+- [ ] **INF-04**: Build output is deployable to `bertjbello.com/`
 - [ ] **INF-05**: Dark mode via `prefers-color-scheme` CSS media query
 - [ ] **INF-06**: Print-friendly CSS stylesheet
 - [ ] **INF-07**: `CHANGELOG.md` component removed (no API dependency)

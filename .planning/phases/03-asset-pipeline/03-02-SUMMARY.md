@@ -71,7 +71,7 @@ completed: 2026-06-07
 - Deleted dead React files with orphan imports: `src/App.tsx`, `src/hooks/use-toast.ts`, `src/pages/not-found.tsx`
 - Verified no `@assets/headshot` imports in `src/pages/home.tsx`
 - Stripped `package.json` from 42 dependencies to 4 (2 deps + 2 devDeps)
-- Fixed LinkedIn URL in CTA button: `https://linkedin.com` → `https://www.linkedin.com/in/humberto-bello/`
+- Fixed LinkedIn URL in CTA button: `https://linkedin.com` → `https://www.linkedin.com/in/`
 - Fixed LinkedIn URL in JSON-LD structured data: same correction
 - All changes verified with `npm run build` — exits 0, output unchanged functionally
 

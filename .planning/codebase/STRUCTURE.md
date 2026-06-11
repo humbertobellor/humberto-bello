@@ -5,7 +5,7 @@
 ## Directory Layout
 
 ```
-humberto-bello/
+
 ├── .planning/                       # GSD planning artifacts
 │   └── codebase/                    # Codebase mapping documents
 ├── public/                          # Static assets (copied to dist root)

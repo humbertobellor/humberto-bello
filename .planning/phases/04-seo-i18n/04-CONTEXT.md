@@ -34,10 +34,10 @@ Full multilingual support and SEO architecture for GitHub Pages deployment. Buil
 - **D-12:** Sitemap namespace: `xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"` + `xmlns:xhtml="http://www.w3.org/1999/xhtml"` for hreflang support.
 
 ### robots.txt
-- **D-13:** Update `robots.txt` to point to new sitemap URL: `Sitemap: https://humbertobellor.github.io/dossier/sitemap.xml`. Content stays minimal (User-agent: *, Allow: /).
+- **D-13:** Update `robots.txt` to point to new sitemap URL: `Sitemap: https://bertjbello.com/sitemap.xml`. Content stays minimal (User-agent: *, Allow: /).
 
 ### Canonical URL
-- **D-14:** All canonical URLs updated from `https://humbertobello.replit.app/` to `https://humbertobellor.github.io/dossier/`. Each locale page gets its own canonical pointing to its own URL.
+- **D-14:** All canonical URLs updated from `https://humbertobello.replit.app/` to `https://bertjbello.com/`. Each locale page gets its own canonical pointing to its own URL.
 
 ### Meta Tags Per Locale
 - **D-15:** Each locale HTML file gets locale-specific: `<title>`, `<meta name="description">`, `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, `<meta property="og:locale">`, `<meta name="twitter:title">`, `<meta name="twitter:description">`, `<link rel="canonical">`.
@@ -45,8 +45,8 @@ Full multilingual support and SEO architecture for GitHub Pages deployment. Buil
 
 ### JSON-LD Structured Data
 - **D-17:** ProfilePage → Person schema kept as-is in all 3 locale files. English-only — no per-locale translation of Person schema fields.
-- **D-18:** Add WebSite schema block alongside Person: `{"@type": "WebSite", "name": "Humberto Bello — Professional Dossier", "url": "https://humbertobellor.github.io/dossier/", "sameAs": [...]}`.
-- **D-19:** All URLs in JSON-LD updated from `humbertobello.replit.app` to `humbertobellor.github.io/dossier/`.
+- **D-18:** Add WebSite schema block alongside Person: `{"@type": "WebSite", "name": "Humberto Bello — Professional Dossier", "url": "https://bertjbello.com/", "sameAs": [...]}`.
+- **D-19:** All URLs in JSON-LD updated from `humbertobello.replit.app` to `bertjbello.com/`.
 
 ### OpenCode's Discretion
 - Build script order of operations for locale HTML generation (loop vs sequential)

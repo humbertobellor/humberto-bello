@@ -41,7 +41,7 @@ key-decisions:
   - "Build-time i18n via data-i18n attribute replacement instead of runtime i18next"
   - "Language switcher uses <a href> links for GitHub Pages static hosting"
   - "Locale redirect reads localStorage 'wk-locale' key on page load"
-  - "Canonical URLs point to humbertobellor.github.io/dossier/"
+  - "Canonical URLs point to bertjbello.com/"
 
 patterns-established:
   - "data-i18n attribute convention: element text is default English, replaced at build time"

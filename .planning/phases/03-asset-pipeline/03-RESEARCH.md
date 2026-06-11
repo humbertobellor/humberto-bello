@@ -100,7 +100,7 @@
 - `src/html/_head.html:47` (JSON-LD `sameAs` array)
 - `src/pages/home.tsx:665` (legacy React source)
 
-**Target:** `https://www.linkedin.com/in/humberto-bello/`
+**Target:** `https://www.linkedin.com/in/`
 
 **Fix locations (Phase 3 scope):**
 - `src/html/cta.html` — the CTA button link

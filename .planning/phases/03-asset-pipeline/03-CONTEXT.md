@@ -39,7 +39,7 @@ Copy all static assets (fonts, images) to `dist/` with correct relative paths fo
 - **D-13:** No OpenGraph image exists in attached_assets. Build script logs a warning if no OG image is found; Phase 4 (SEO) can generate one.
 
 ### LinkedIn URL Fix
-- **D-14:** Fix `href="https://linkedin.com"` → `href="https://www.linkedin.com/in/humberto-bello/"` in `src/pages/home.tsx:665`. Locale JSON label text is correct as-is.
+- **D-14:** Fix `href="https://linkedin.com"` → `href="https://www.linkedin.com/in/"` in `src/pages/home.tsx:665`. Locale JSON label text is correct as-is.
 
 ### OpenCode's Discretion
 - Order of copy operations within build.mjs (fonts before images, error handling strategy)

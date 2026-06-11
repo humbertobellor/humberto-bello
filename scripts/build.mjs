@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-// 1. Read BASE_PATH (default to /humberto-bello/ for GitHub Pages deployment)
-const basePath = process.env.BASE_PATH || '/humberto-bello/';
+// 1. Read BASE_PATH (default to / for GitHub Pages deployment)
+const basePath = process.env.BASE_PATH || '/';
 
 // 2. Scaffold output directories
 const dirs = ['dist', 'dist/fonts', 'dist/images'];
@@ -67,7 +67,7 @@ function injectStyles(html) {
   return html;
 }
 
-// Validate all asset paths in output HTML use /humberto-bello/ prefix or are relative
+// Validate all asset paths in output HTML use / prefix or are relative
 function validatePaths(html) {
   const issues = [];
 
@@ -78,9 +78,9 @@ function validatePaths(html) {
     if (path.startsWith('data:') || path.startsWith('http://') || path.startsWith('https://') || path.startsWith('#')) continue;
     // Skip non-asset paths (mailto:, tel:, javascript:)
     if (/^(mailto:|tel:|javascript:)/.test(path)) continue;
-    // Must start with /humberto-bello/ or be a relative path (no leading /)
-    if (path.startsWith('/') && !path.startsWith('/humberto-bello/')) {
-      issues.push(`Absolute path without /humberto-bello/ prefix: ${path}`);
+    // Must start with / or be a relative path (no leading /)
+    if (path.startsWith('/') && !path.startsWith('/')) {
+      issues.push(`Absolute path without / prefix: ${path}`);
     }
   }
 
@@ -89,8 +89,8 @@ function validatePaths(html) {
   for (const [, srcset] of srcsetMatches) {
     const entries = srcset.split(',').map(s => s.trim().split(/\s+/)[0]);
     for (const entry of entries) {
-      if (entry.startsWith('/') && !entry.startsWith('/humberto-bello/')) {
-        issues.push(`Srcset path without /humberto-bello/ prefix: ${entry}`);
+      if (entry.startsWith('/') && !entry.startsWith('/')) {
+        issues.push(`Srcset path without / prefix: ${entry}`);
       }
     }
   }
@@ -98,8 +98,8 @@ function validatePaths(html) {
   // Check CSS url() in inline styles (not in external CSS files — those are already inlined)
   const urlMatches = html.matchAll(/url\(["']?([^"')]+)["']?\)/g);
   for (const [, path] of urlMatches) {
-    if (path.startsWith('/') && !path.startsWith('/humberto-bello/')) {
-      issues.push(`CSS url() path without /humberto-bello/ prefix: ${path}`);
+    if (path.startsWith('/') && !path.startsWith('/')) {
+      issues.push(`CSS url() path without / prefix: ${path}`);
     }
   }
 
@@ -178,7 +178,7 @@ function setActiveLocale(html, locale) {
   // Remove data-active from all language switcher links
   html = html.replace(/(<a href="\/humberto-bello\/[^"]*" class="wk-nav-link")( data-active="true")?/g, '$1');
   // Set data-active on the correct locale link
-  const localePath = locale === 'en' ? '/humberto-bello/' : `/humberto-bello/${locale}/`;
+  const localePath = locale === 'en' ? '/' : `/${locale}/`;
   html = html.replace(
     new RegExp(`(href="${localePath}" class="wk-nav-link")`),
     '$1 data-active="true"'

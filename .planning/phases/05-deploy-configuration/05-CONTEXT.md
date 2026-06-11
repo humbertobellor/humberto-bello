@@ -23,7 +23,7 @@ Configure GitHub Pages deployment: copy `dist/` output to `docs/` folder on main
 - **D-05:** Build fails with a clear error message if any asset path doesn't match the expected pattern. No silent bad paths reaching production.
 
 ### Post-Deploy Verification
-- **D-06:** Manual browser check after deploy — open `https://humbertobellor.github.io/dossier/` and verify:
+- **D-06:** Manual browser check after deploy — open `https://bertjbello.com/` and verify:
   1. All 3 locales (en, es, de) load and render correctly
   2. Fonts load (Bogart, Inter Tight, JetBrains Mono, Newsreader)
   3. Headshot images display (AVIF/WebP with srcset)

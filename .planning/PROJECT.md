@@ -38,7 +38,7 @@ Inferred from existing codebase. Already working and shipping.
 - [ ] **STATIC-09**: Fix LinkedIn placeholder URL with real profile link
 - [ ] **STATIC-10**: Improve SEO (canonical, meta descriptions, structured data refinements)
 - [ ] **STATIC-11**: Generate 404.html for GitHub Pages SPA fallback
-- [ ] **STATIC-12**: Deploy to GitHub Pages (`humbertobellor.github.io/dossier`)
+- [ ] **STATIC-12**: Deploy to GitHub Pages (`bertjbello.com`)
 
 ### Out of Scope
 
@@ -59,7 +59,7 @@ The CONCERNS.md scan flagged: 55 unused shadcn/ui components (~5,766 lines), zer
 ## Constraints
 
 - **Hosting**: Must work as 100% static files — no server, no build-time server
-- **Deploy target**: GitHub Pages (`humbertobellor.github.io/dossier`)
+- **Deploy target**: GitHub Pages (`bertjbello.com`)
 - **Timeline**: This session — plan through execution complete
 - **Output**: Single `index.html` (plus `404.html` for SPA routing)
 - **No new dependencies**: Use Node built-ins only for build script
