@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://humbertobellor.github.io/dossier/sitemap.xml
+Sitemap: https://bertjbello.com/sitemap.xml

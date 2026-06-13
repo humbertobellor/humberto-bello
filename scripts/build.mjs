@@ -225,7 +225,7 @@ try {
   }
 
   // 12. Generate sitemap.xml (per D-10, D-11, D-12)
-  const baseUrl = 'https://humbertobellor.github.io/humberto-bello';
+  const baseUrl = 'https://bertjbello.com';
   const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
   const sitemapLocales = [
     { code: 'en', path: '/' },
