@@ -92,27 +92,27 @@
     "subtitle": "A curated view of high-impact engagements across enterprise transformation, AI, and platform engineering.",
     "entries": [
       {
-        "company": "Equifax (EFX)",
+        "company": "Fortune 100 - Fintech",
         "highlight": "Engineering Scaling & Governance",
         "description": "Scaled engineering teams from 8 to 20 across 3 countries; ran 34 sprints and 3 PI Plannings. Led product roadmap and governance partnering with Architecture, InfoSec, and Engineering stakeholders."
       },
       {
-        "company": "Medical Device Company",
+        "company": "Fortune 100 - Medical Device Company",
         "highlight": "API Security for Surgical Devices",
         "description": "Implemented API management and produced security guardrails for microservices controlling surgical devices."
       },
       {
-        "company": "RAG & Agentic",
+        "company": "Fortune 500 - Retail & Financial",
         "highlight": "RAG Engine for Contract Management",
         "description": "Built a RAG engine for Leasing Contract Management productivity. Produced a serverless version for AWS. Implemented Claude Skills for TDD workflow and a EventStorming facilitator agent."
       },
       {
-        "company": "Verizon / Largest MVNO in USA",
+        "company": "Fortune 500 - Largest Wireless MVNO in USA",
         "highlight": "Mobile Wireless Platform Modernization",
         "description": "Modernized, rebuilt, and standardized the middleware and portal for Mobile Wireless service provisioning, scaling from 6M to 19M subscribers across 8 brands."
       },
       {
-        "company": "FISERV",
+        "company": "Fortune 500 - Fintech",
         "highlight": "Real-Time Payment Network",
         "description": "Provided solution architecture and design for event processing requirements for a real-time payment network, integrating with OpenBanking Customer APIs."
       },

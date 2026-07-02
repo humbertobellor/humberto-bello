@@ -92,12 +92,12 @@
     "subtitle": "Una selección de compromisos de alto impacto en transformación empresarial, IA e ingeniería de plataformas.",
     "entries": [
       {
-        "company": "Equifax (EFX)",
+        "company": "Fortune 100 - Fintech",
         "highlight": "Escalado y Gobernanza de Ingeniería",
         "description": "Escalé equipos de ingeniería de 8 a 20 personas en 3 países; dirigí 34 sprints y 3 PI Plannings. Lideré el roadmap de producto y la gobernanza en colaboración con stakeholders de Arquitectura, InfoSec e Ingeniería."
       },
       {
-        "company": "Empresa de Dispositivos Médicos",
+        "company": "Fortune 100 - Organización de Bioingeniería",
         "highlight": "Seguridad API para Dispositivos Quirúrgicos",
         "description": "Implementé gestión de APIs y produje controles de seguridad para microservicios que controlan dispositivos quirúrgicos."
       },
@@ -107,17 +107,17 @@
         "description": "Construí un motor RAG para la productividad en la Gestión de Contratos de Arrendamiento. Produje una versión serverless para AWS. Implementé Claude Skills para flujo de trabajo TDD y un agente facilitador de EventStorming."
       },
       {
-        "company": "Verizon / Largest MVNO in USA",
+        "company": "Fortune 500 - Operador de telefonía móvil mas grande de USA",
         "highlight": "Modernización de Plataforma Inalámbrica Móvil",
         "description": "Modernizé, reconstruí y estandaricé el middleware y el portal para el aprovisionamiento de servicios inalámbricos móviles, escalando de 6M a 19M de suscriptores en 8 marcas."
       },
       {
-        "company": "FISERV",
+        "company": "Fortune 500 - Fintech",
         "highlight": "Red de Pagos en Tiempo Real",
         "description": "Proporcioné arquitectura de soluciones y diseño para los requisitos de procesamiento de eventos de una red de pagos en tiempo real, integrando con las APIs de clientes de OpenBanking."
       },
       {
-        "company": "Fifth Third Bank",
+        "company": "Fortune 500 - Institución Bancaria en USA",
         "highlight": "Cartera Digital de Banca Móvil",
         "description": "Líder técnico — diseñé e implementé la capa de integración y servicios para soportar la cartera digital de banca personal móvil para 2.4 millones de usuarios bancarios móviles mensuales."
       }

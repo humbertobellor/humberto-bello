@@ -92,12 +92,12 @@
     "subtitle": "Eine Auswahl hochwirksamer Engagements in der Unternehmenstransformation, KI und Plattform-Engineering.",
     "entries": [
       {
-        "company": "Equifax (EFX)",
+        "company": "Fortune 100 - Finanztechnologie",
         "highlight": "Engineering-Skalierung & Governance",
         "description": "Engineering-Teams von 8 auf 20 Personen in 3 Ländern skaliert; 34 Sprints und 3 PI-Planungen geleitet. Produkt-Roadmap und Governance in Zusammenarbeit mit Architektur-, InfoSec- und Engineering-Stakeholdern geführt."
       },
       {
-        "company": "Medizintechnikunternehmen",
+        "company": "Fortune 100 - Medizintechnikunternehmen",
         "highlight": "API-Sicherheit für chirurgische Geräte",
         "description": "API-Management implementiert und Sicherheits-Guardrails für Microservices zur Steuerung chirurgischer Geräte entwickelt."
       },
@@ -107,17 +107,17 @@
         "description": "Eine RAG-Engine für die Produktivität im Leasing-Vertragsmanagement entwickelt. Eine serverlose Version für AWS erstellt. Claude Skills für TDD-Workflow und einen EventStorming-Facilitator-Agenten implementiert."
       },
       {
-        "company": "TracFone / Largest MVNO in USA",
+        "company": "Fortune 500 -  Größter MVNO in den USA",
         "highlight": "Modernisierung der mobilen Wireless-Plattform",
         "description": "Middleware und Portal für die mobile Wireless-Dienstbereitstellung modernisiert, neu aufgebaut und standardisiert – Skalierung von 6M auf 19M Abonnenten über 8 Marken."
       },
       {
-        "company": "FISERV",
+        "company": "Fortune 100 - Unternehmen – Finanztechnologie",
         "highlight": "Echtzeit-Zahlungsnetzwerk",
         "description": "Lösungsarchitektur und Design für Echtzeit-Zahlungsnetzwerk-Anforderungen bereitgestellt und mit OpenBanking-Kunden-APIs integriert."
       },
       {
-        "company": "Fifth Third Bank",
+        "company": "Fortune 500 - Unternehmen – Bankwesen",
         "highlight": "Mobile Banking Wallet",
         "description": "Technischer Leiter — Integrations- und Serviceschicht für die persönliche Banking Mobile Wallet für 2,4 Millionen monatliche Mobile-Banking-Nutzer entworfen und implementiert."
       }
